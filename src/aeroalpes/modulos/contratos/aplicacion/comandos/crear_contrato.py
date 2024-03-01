@@ -7,7 +7,7 @@ from aeroalpes.seedwork.aplicacion.comandos import ejecutar_commando as comando
 from aeroalpes.modulos.contratos.dominio.entidades import Contrato
 from aeroalpes.seedwork.infraestructura.uow import UnidadTrabajoPuerto
 from aeroalpes.modulos.contratos.aplicacion.mapeadores import MapeadorContrato
-from aeroalpes.modulos.contratos.infraestructura.repositorios import RepositorioContratos
+from aeroalpes.modulos.contratos.infraestructura.repositorios import RepositorioContratos, RepositorioEventosContratos
 
 @dataclass
 class CrearContrato(Comando):
@@ -49,7 +49,8 @@ class CrearContratoHandler(CrearContratoBaseHandler):
         print("crear contrato:")
         print(contrato)
 
-        repositorio = self.fabrica_repositorio.crear_objeto(RepositorioContratos.__class__)
+        repositorio = self.fabrica_repositorio.crear_objeto(RepositorioContratos)
+        #repositorio_eventos = self.fabrica_repositorio.crear_objeto(RepositorioEventosContratos)
 
         print("repositorio:")
         print(repositorio)
@@ -57,7 +58,7 @@ class CrearContratoHandler(CrearContratoBaseHandler):
 
 
         UnidadTrabajoPuerto.registrar_batch(repositorio.agregar, contrato)
-        UnidadTrabajoPuerto.savepoint()
+        #UnidadTrabajoPuerto.savepoint()
         UnidadTrabajoPuerto.commit()
 
 

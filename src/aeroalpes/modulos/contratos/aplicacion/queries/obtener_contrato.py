@@ -13,7 +13,7 @@ class ObtenerContrato(Query):
 class ObtenerContratoHandler(ContratoQueryBaseHandler):
 
     def handle(self, query: ObtenerContrato) -> QueryResultado:
-        repositorio = self.fabrica_repositorio.crear_objeto(RepositorioContratos.__class__)
+        repositorio = self.fabrica_repositorio.crear_objeto(RepositorioContratos)
         print("repositorio")
         print(repositorio)
         contrato =  self.fabrica_contratos.crear_objeto(repositorio.obtener_por_id(query.id), MapeadorContrato())
