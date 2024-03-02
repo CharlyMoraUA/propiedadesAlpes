@@ -63,8 +63,9 @@ class RepositorioContratosSQLAlchemy(RepositorioContratos):
         raise NotImplementedError
 
     def eliminar(self, contrato_id: UUID):
-        # TODO
-        raise NotImplementedError
+        db.session.query(ContratoDTO).filter_by(id=str(contrato_id)).delete()
+        db.session.commit()
+
     
 class RepositorioEventosContratoSQLAlchemy(RepositorioEventosContratos):
 

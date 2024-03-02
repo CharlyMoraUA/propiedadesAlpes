@@ -14,11 +14,7 @@ class ObtenerContratoHandler(ContratoQueryBaseHandler):
 
     def handle(self, query: ObtenerContrato) -> QueryResultado:
         repositorio = self.fabrica_repositorio.crear_objeto(RepositorioContratos)
-        print("repositorio")
-        print(repositorio)
         contrato =  self.fabrica_contratos.crear_objeto(repositorio.obtener_por_id(query.id), MapeadorContrato())
-        print("handle_contrato")
-        print(contrato)
         return QueryResultado(resultado=contrato)
 
 @query.register(ObtenerContrato)

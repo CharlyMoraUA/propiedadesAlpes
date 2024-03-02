@@ -43,3 +43,10 @@ class ServicioContrato(Servicio):
         repositorio = self.fabrica_repositorio.crear_objeto(RepositorioContratos.__class__)
         return self.fabrica_contratos.crear_objeto(repositorio.obtener_por_id(id), MapeadorContrato())
 
+    def eliminar_contrato_por_id(self, id) -> ContratoDTO:
+        repositorio = self.fabrica_repositorio.crear_objeto(RepositorioContratos.__class__)
+        UnidadTrabajoPuerto.registrar_batch(repositorio.eliminar, contrato)
+        UnidadTrabajoPuerto.savepoint()
+        UnidadTrabajoPuerto.commit()
+        return self.fabrica_contratos.crear_objeto(repositorio.eliminar_por_id(id), MapeadorContrato())
+

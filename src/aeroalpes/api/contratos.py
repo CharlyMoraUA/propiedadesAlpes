@@ -9,6 +9,7 @@ from flask import Response
 from aeroalpes.modulos.contratos.aplicacion.mapeadores import MapeadorContratoDTOJson
 from aeroalpes.modulos.contratos.aplicacion.comandos.crear_contrato import CrearContrato
 from aeroalpes.modulos.contratos.aplicacion.queries.obtener_contrato import ObtenerContrato
+from aeroalpes.modulos.contratos.aplicacion.queries.eliminar_contrato import EliminarContrato
 from aeroalpes.seedwork.aplicacion.comandos import ejecutar_commando
 from aeroalpes.seedwork.aplicacion.queries import ejecutar_query
 
@@ -78,3 +79,21 @@ def dar_contrato_usando_query(id=None):
         return map_contrato.dto_a_externo(query_resultado.resultado)
     else:
         return [{'message': 'GET!'}]
+
+
+
+@bp.route('/contrato-query/<id>', methods=('DELETE',))
+def eliminar_contrato_usando_query(id=None):
+    print("cualquier cosa")
+    if id:
+        query_resultado = ejecutar_query(EliminarContrato(id))
+        print(" query_resultado")
+        print( query_resultado)
+
+        if query_resultado:
+            return [{'message': 'DELETED SUCCESFULLY!'}]
+        else:
+            return [{'message': 'OBJECT DOES NOT EXIST!'}]
+        
+    else:
+        return [{'message': 'I HAVE TO HAVE A ID TO DELETE!'}] 
