@@ -10,6 +10,7 @@ from aeroalpes.modulos.contratos.aplicacion.mapeadores import MapeadorContratoDT
 from aeroalpes.modulos.contratos.aplicacion.comandos.crear_contrato import CrearContrato
 from aeroalpes.modulos.contratos.aplicacion.queries.obtener_contrato import ObtenerContrato
 from aeroalpes.modulos.contratos.aplicacion.queries.eliminar_contrato import EliminarContrato
+from aeroalpes.modulos.contratos.aplicacion.comandos.actualizar_contrato import ActualizarContrato
 from aeroalpes.seedwork.aplicacion.comandos import ejecutar_commando
 from aeroalpes.seedwork.aplicacion.queries import ejecutar_query
 
@@ -72,3 +73,18 @@ def eliminar_contrato_usando_query(id=None):
         
     else:
         return [{'message': 'I HAVE TO HAVE A ID TO DELETE!'}] 
+
+@bp.route('/contrato-comando/<id>', methods=('PUT',))
+def actualizar_contrato_asincrono(id=None):
+    try:
+        if id:
+            contrato_dict = request.json
+            map_contrato = MapeadorContratoDTOJson()
+            contrato_dto = map_contrato.externo_a_dto(contrato_dict)
+            comando = ActualizarContrato(id, contrato_dto.fecha_creacion, contrato_dto.fecha_actualizacion, contrato_dto.fecha_inicio, contrato_dto.fecha_fin, contrato_dto.id_compania, contrato_dto.id_inquilino, contrato_dto.id_propiedad, contrato_dto.monto)
+            ejecutar_commando(comando)
+            return Response('{}', status=202, mimetype='application/json')
+        else:
+            return [{'message': 'I HAVE TO HAVE A ID TO DELETE!'}] 
+    except ExcepcionDominio as e:
+        return Response(json.dumps(dict(error=str(e))), status=400, mimetype='application/json')

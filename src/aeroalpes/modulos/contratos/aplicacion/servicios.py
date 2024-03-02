@@ -37,6 +37,21 @@ class ServicioContrato(Servicio):
         print("CONTRATO FABRICA")
         print(contrato)
 
+        return self.fabrica_contratos.crear_objeto(contrato, MapeadorContrato())\
+
+    def actualizar_contrato(self, contrato_dto: ContratoDTO) -> ContratoDTO:
+        contrato: Contrato = self.fabrica_contratos.crear_objeto(contrato_dto, MapeadorContrato())
+        contrato.crear_contrato(contrato)
+
+        repositorio = self.fabrica_repositorio.crear_objeto(RepositorioContratos.__class__)
+
+        UnidadTrabajoPuerto.registrar_batch(repositorio.actualizar, contrato)
+        UnidadTrabajoPuerto.savepoint()
+        UnidadTrabajoPuerto.commit()
+
+        print("CONTRATO FABRICA")
+        print(contrato)
+
         return self.fabrica_contratos.crear_objeto(contrato, MapeadorContrato())
 
     def obtener_contrato_por_id(self, id) -> ContratoDTO:

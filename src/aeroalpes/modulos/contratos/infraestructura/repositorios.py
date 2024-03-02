@@ -53,8 +53,18 @@ class RepositorioContratosSQLAlchemy(RepositorioContratos):
         db.session.add(contrato_dto)
 
     def actualizar(self, contrato: Contrato):
-        # TODO
-        raise NotImplementedError
+        contrato_dto = db.session.query(ContratoDTO).filter_by(id=str(contrato.id)).one()
+        contrato_dto.id = contrato.id
+        contrato_dto.fecha_creacion = contrato.fecha_creacion
+        contrato_dto.fecha_actualizacion = contrato.fecha_actualizacion
+        contrato_dto.fecha_inicio = contrato.fecha_inicio
+        contrato_dto.fecha_fin = contrato.fecha_fin
+        contrato_dto.id_compania = contrato.id_compania
+        contrato_dto.id_inquilino = contrato.id_inquilino
+        contrato_dto.id_propiedad = contrato.id_propiedad
+        contrato_dto.monto = contrato.monto
+        #db.session.query(ContratoDTO).filter_by(id=str(contrato_dto.id)).update(contrato_dto)
+        db.session.commit()
 
     def eliminar(self, contrato_id: UUID):
         db.session.query(ContratoDTO).filter_by(id=str(contrato_id)).delete()
