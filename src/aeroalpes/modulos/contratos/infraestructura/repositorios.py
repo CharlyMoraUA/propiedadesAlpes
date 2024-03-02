@@ -67,7 +67,7 @@ class RepositorioContratosSQLAlchemy(RepositorioContratos):
         db.session.commit()
 
     def eliminar(self, contrato_id: UUID):
-        db.session.query(ContratoDTO).filter_by(id=str(contrato_id)).delete()
+        db.session.query(ContratoDTO).filter_by(id=str(contrato_id.id)).delete()
         db.session.commit()
 
     

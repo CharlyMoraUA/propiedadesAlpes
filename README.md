@@ -20,7 +20,10 @@ Este repositorio sigue en general la misma estructura del repositorio de origen.
 
 ### Ejecutar Aplicación
 
-Desde el directorio principal ejecute el siguiente comando.
+Desde el directorio principal desde 3 consolas diferentes ejecute los 3 siguientes comandos en este orden
+docker-compose up -d db
+docker-compose --profile pulsar up
+flask --app src/aeroalpes/api --debug run
 
 ```bash
 flask --app src/aeroalpes/api run

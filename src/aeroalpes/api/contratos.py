@@ -8,8 +8,8 @@ from flask import redirect, render_template, request, session, url_for
 from flask import Response, make_response
 from aeroalpes.modulos.contratos.aplicacion.mapeadores import MapeadorContratoDTOJson
 from aeroalpes.modulos.contratos.aplicacion.comandos.crear_contrato import CrearContrato
+from aeroalpes.modulos.contratos.aplicacion.comandos.eliminar_contrato import EliminarContrato
 from aeroalpes.modulos.contratos.aplicacion.queries.obtener_contrato import ObtenerContrato
-from aeroalpes.modulos.contratos.aplicacion.queries.eliminar_contrato import EliminarContrato
 from aeroalpes.modulos.contratos.aplicacion.comandos.actualizar_contrato import ActualizarContrato
 from aeroalpes.seedwork.aplicacion.comandos import ejecutar_commando
 from aeroalpes.seedwork.aplicacion.queries import ejecutar_query
@@ -65,12 +65,9 @@ def dar_contrato_usando_query(id=None):
 @bp.route('/contrato-query/<id>', methods=('DELETE',))
 def eliminar_contrato_usando_query(id=None):
     if id:
-        query_resultado = ejecutar_query(EliminarContrato(id))
-        if query_resultado:
-            return make_response('', 204)
-        else:
-            return make_response('Object with that ID was not found', 404)
-        
+        comando = EliminarContrato(EliminarContrato(id))
+        ejecutar_commando(comando)
+        return make_response('', 204)
     else:
         return [{'message': 'I HAVE TO HAVE A ID TO DELETE!'}] 
 
