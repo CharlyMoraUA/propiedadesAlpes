@@ -42,8 +42,6 @@ class RepositorioContratosSQLAlchemy(RepositorioContratos):
 
     def obtener_por_id(self, id: UUID) -> Contrato:
         contrato_dto = db.session.query(ContratoDTO).filter_by(id=str(id)).one()
-        print("contrato_dto_obtener_por_id")
-        print(contrato_dto.id_compania)
         return self.fabrica_contratos.crear_objeto(contrato_dto, MapeadorContrato())
 
     def obtener_todos(self) -> list[Contrato]:
@@ -51,11 +49,7 @@ class RepositorioContratosSQLAlchemy(RepositorioContratos):
         raise NotImplementedError
 
     def agregar(self, contrato: Contrato):
-        print("contrato_db")
-        print(contrato)
         contrato_dto = self.fabrica_contratos.crear_objeto(contrato, MapeadorContrato())
-        print("contrato-sqlite")
-        print(contrato_dto)
         db.session.add(contrato_dto)
 
     def actualizar(self, contrato: Contrato):

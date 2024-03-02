@@ -14,8 +14,6 @@ class EliminarContratoHandler(ContratoQueryBaseHandler):
 
     def handle(self, query: EliminarContrato) -> QueryResultado:
         repositorio = self.fabrica_repositorio.crear_objeto(RepositorioContratos)
-        print("repositorio")
-        print(repositorio)
         try:
             contrato =  self.fabrica_contratos.crear_objeto(repositorio.obtener_por_id(query.id), MapeadorContrato())
             repositorio.eliminar(query.id)
