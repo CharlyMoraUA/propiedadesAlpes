@@ -169,3 +169,39 @@ services:
       - pulsar
     ports:
       - '3306:3306'
+
+  #Servicio de compañias
+  companias:
+      container_name: companias
+      hostname: companias
+      image: companias/flask 
+      profiles: ["companias", "monolito"]
+      networks:
+        - sidecar
+        - pulsar
+      labels:
+        SidecarDiscover: "false"
+      depends_on:
+        - broker
+        - db_companias
+      environment:
+        - AEROALPES_ADDRESS=companias
+        - PULSAR_ADDRESS=broker
+      ports:
+        - "5002:5000"
+  #Mysql
+  db_companias:
+    image: mysql:8
+    hostname: db_companias
+    container_name: db_companias
+    cap_add:
+      - SYS_NICE
+    restart: always
+    environment:
+      - MYSQL_DATABASE=companias
+      - MYSQL_ROOT_PASSWORD=adminadmin
+    profiles: ["companias", "db_companias"]
+    networks:
+      - pulsar
+    ports:
+      - '3306:3306'
