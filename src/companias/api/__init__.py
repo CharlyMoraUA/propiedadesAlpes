@@ -7,10 +7,10 @@ from flask_swagger import swagger
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 def registrar_handlers():
-    import companias.modulos.contratos.aplicacion
+    import companias.modulos.companias.aplicacion
 
 def importar_modelos_alchemy():
-    import companias.modulos.contratos.infraestructura.dto
+    import companias.modulos.companias.infraestructura.dto
 
 def comenzar_consumidor():
     """
@@ -20,13 +20,13 @@ def comenzar_consumidor():
     """
 
     import threading
-    import companias.modulos.contratos.infraestructura.consumidores as contratos
+    import companias.modulos.companias.infraestructura.consumidores as companias
 
     # Suscripción a eventos
-    threading.Thread(target=contratos.suscribirse_a_eventos).start()
+    threading.Thread(target=companias.suscribirse_a_eventos).start()
 
     # Suscripción a comandos
-    threading.Thread(target=contratos.suscribirse_a_comandos).start()
+    threading.Thread(target=companias.suscribirse_a_comandos).start()
 
 def create_app(configuracion={}):
     # Init la aplicacion de Flask
@@ -55,10 +55,10 @@ def create_app(configuracion={}):
             comenzar_consumidor()
 
      # Importa Blueprints
-    from . import contratos
+    from . import companias
 
     # Registro de Blueprints
-    app.register_blueprint(contratos.bp)
+    app.register_blueprint(companias.bp)
 
     @app.route("/spec")
     def spec():
