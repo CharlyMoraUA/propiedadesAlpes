@@ -14,7 +14,8 @@ import uuid
 class EventoDominio():
     id: uuid.UUID = field(hash=True)
     _id: uuid.UUID = field(init=False, repr=False, hash=True)
-    fecha_evento: datetime =  field(default=datetime.now())
+    nombre: str =  field(default=str)
+    telefono: int =  field(default=int)
 
 
     @classmethod
