@@ -53,12 +53,15 @@ def dar_compania(id=None):
 @bp.route('/compania-query', methods=('GET',))
 @bp.route('/compania-query/<id>', methods=('GET',))
 def dar_compania_usando_query(id=None):
-    if id:
-        query_resultado = ejecutar_query(ObtenerCompania(id))
-        map_compania = MapeadorCompaniaDTOJson()        
-        return map_compania.dto_a_externo(query_resultado.resultado)
-    else:
-        return [{'message': 'GET!'}]
+    #SIMULACION DE ERROR EN EL SERVIDOR
+    return Response('{}', status=500)
+    # # CODIGO ORIGINAL
+    # if id:
+    #     query_resultado = ejecutar_query(ObtenerCompania(id))
+    #     map_compania = MapeadorCompaniaDTOJson()        
+    #     return map_compania.dto_a_externo(query_resultado.resultado)
+    # else:
+    #     return [{'message': 'GET!'}]
 
 
 
