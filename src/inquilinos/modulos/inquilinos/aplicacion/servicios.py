@@ -34,7 +34,7 @@ class ServicioInquilino(Servicio):
         UnidadTrabajoPuerto.savepoint()
         UnidadTrabajoPuerto.commit()
 
-        print("CONTRATO FABRICA")
+        print("INQUILINO FABRICA")
         print(inquilino)
 
         return self.fabrica_inquilinos.crear_objeto(inquilino, MapeadorInquilino())\
@@ -49,7 +49,7 @@ class ServicioInquilino(Servicio):
         UnidadTrabajoPuerto.savepoint()
         UnidadTrabajoPuerto.commit()
 
-        print("CONTRATO FABRICA")
+        print("INQUILINO FABRICA")
         print(inquilino)
 
         return self.fabrica_inquilinos.crear_objeto(inquilino, MapeadorInquilino())

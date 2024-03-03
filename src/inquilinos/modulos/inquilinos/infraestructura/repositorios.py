@@ -55,14 +55,8 @@ class RepositorioInquilinosSQLAlchemy(RepositorioInquilinos):
     def actualizar(self, inquilino: Inquilino):
         inquilino_dto = db.session.query(InquilinoDTO).filter_by(id=str(inquilino.id)).one()
         inquilino_dto.id = inquilino.id
-        inquilino_dto.fecha_creacion = inquilino.fecha_creacion
-        inquilino_dto.fecha_actualizacion = inquilino.fecha_actualizacion
-        inquilino_dto.fecha_inicio = inquilino.fecha_inicio
-        inquilino_dto.fecha_fin = inquilino.fecha_fin
-        inquilino_dto.id_compania = inquilino.id_compania
-        inquilino_dto.id_inquilino = inquilino.id_inquilino
-        inquilino_dto.id_propiedad = inquilino.id_propiedad
-        inquilino_dto.monto = inquilino.monto
+        inquilino_dto.nombre = inquilino.nombre
+        inquilino_dto.telefono = inquilino.telefon
         #db.session.query(InquilinoDTO).filter_by(id=str(inquilino_dto.id)).update(inquilino_dto)
         db.session.commit()
 

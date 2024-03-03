@@ -4,11 +4,5 @@ from inquilinos.seedwork.aplicacion.dto import DTO
 @dataclass(frozen=True)
 class InquilinoDTO(DTO):
     id: str = field(default_factory=str)
-    fecha_creacion: str = field(default_factory=str)
-    fecha_actualizacion: str = field(default_factory=str)
-    fecha_inicio: str = field(default_factory=str)
-    fecha_fin: str = field(default_factory=str)
-    id_compania: int = field(default_factory=int)
-    id_inquilino: int = field(default_factory=int)
-    id_propiedad: int = field(default_factory=int)
-    monto: float = field(default_factory=float)
+    nombre: str = field(default_factory=str)
+    telefono: int = field(default_factory=int)

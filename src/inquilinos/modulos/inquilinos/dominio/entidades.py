@@ -14,28 +14,19 @@ from inquilinos.seedwork.dominio.entidades import Locacion, AgregacionRaiz, Enti
 @dataclass
 class Inquilino(AgregacionRaiz):
     id: uuid.UUID = field(hash=True, default=None)
-    estado: ov.EstadoInquilino = field(default=ov.EstadoInquilino.PENDIENTE)
-    fecha_inicio: ov.Fecha_inicio = field(hash=True, default=None)
-    fecha_fin: ov.Fecha_fin = field(hash=True, default=None)
-    id_compania: ov.id_compania = field(hash=True, default=None)
-    id_inquilino: ov.id_inquilino = field(hash=True, default=None)
-    id_propiedad: ov.id_propiedad = field(hash=True, default=None)
-    monto: ov.Monto = field(hash=True, default=None)
+    nombre: ov.nombre = field(default=ov.nombre)
+    telefono: ov.telefono = field(default=ov.telefono)
+    
 
     def crear_inquilino(self, inquilino: Inquilino):
         self.id = inquilino.id
-        self.estado = inquilino.estado
-        self.fecha_inicio = inquilino.fecha_inicio
-        self.fecha_fin = inquilino.fecha_fin
-        self.id_compania = inquilino.id_compania
-        self.id_inquilino = inquilino.id_inquilino
-        self.id_propiedad = inquilino.id_propiedad
-        self.monto = inquilino.monto
+        self.nombre = inquilino.nombre
+        self.telefono = inquilino.telefono
 
         print("inquilino2:")
         print(inquilino)
 
-        self.agregar_evento(InquilinoCreado(id_inquilino=self.id, estado=self.estado.name, fecha_creacion=self.fecha_creacion))
+        self.agregar_evento(InquilinoCreado(id_inquilino=self.id, nombre=self.nombre, telefono=self.telefono))
 
     """ def firmar_inquilino(self):
         self.estado = ov.EstadoInquilino.FIRMADO

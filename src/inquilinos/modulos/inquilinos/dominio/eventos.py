@@ -8,5 +8,5 @@ import uuid
 @dataclass
 class InquilinoCreado(EventoDominio):
     id_inquilino: uuid.UUID = None
-    estado: str = None
-    fecha_creacion: datetime = None
+    nombre: str = None
+    telefono: int = None
