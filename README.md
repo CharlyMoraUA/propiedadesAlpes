@@ -20,10 +20,15 @@ Este repositorio sigue en general la misma estructura del repositorio de origen.
 
 ### Ejecutar Aplicación
 
-Desde el directorio principal desde 3 consolas diferentes ejecute los 3 siguientes comandos en este orden
-docker-compose up -d db
+Desde el directorio principal desde 3 consolas diferentes ejecute los 3 siguientes comandos en este orden (para inquilinos)
+
+docker stop $(docker ps -a -q)
+docker rm $(docker ps -a -q)
+docker build . -f inquilinos.Dockerfile -t inquilinos/flask
+
+docker-compose up -d db2
 docker-compose --profile pulsar up
-flask --app src/aeroalpes/api --debug run
+flask --app src/inquilinos/api --debug run
 
 ```bash
 flask --app src/aeroalpes/api run
