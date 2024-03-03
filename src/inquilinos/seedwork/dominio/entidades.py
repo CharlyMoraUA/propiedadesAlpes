@@ -17,7 +17,7 @@ class Entidad:
     id: uuid.UUID = field(hash=True)
     _id: uuid.UUID = field(init=False, repr=False, hash=True)
     nombre: str =  field(default=str)
-    telefono: int = field(int)
+    telefono: int = field(default=int)
 
     @classmethod
     def siguiente_id(self) -> uuid.UUID:
