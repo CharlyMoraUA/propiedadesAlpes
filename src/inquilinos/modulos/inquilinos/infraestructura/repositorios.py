@@ -56,7 +56,7 @@ class RepositorioInquilinosSQLAlchemy(RepositorioInquilinos):
         inquilino_dto = db.session.query(InquilinoDTO).filter_by(id=str(inquilino.id)).one()
         inquilino_dto.id = inquilino.id
         inquilino_dto.nombre = inquilino.nombre
-        inquilino_dto.telefono = inquilino.telefon
+        inquilino_dto.telefono = inquilino.telefono
         #db.session.query(InquilinoDTO).filter_by(id=str(inquilino_dto.id)).update(inquilino_dto)
         db.session.commit()
 
