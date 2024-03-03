@@ -20,15 +20,26 @@ Este repositorio sigue en general la misma estructura del repositorio de origen.
 
 ### Ejecutar Aplicación
 
-Desde el directorio principal desde 3 consolas diferentes ejecute los 3 siguientes comandos en este orden (para inquilinos)
-
 docker stop $(docker ps -a -q)
 docker rm $(docker ps -a -q)
+
+Desde el directorio principal desde 3 consolas diferentes ejecute los 3 siguientes comandos en este orden (para inquilinos)
+
 docker build . -f inquilinos.Dockerfile -t inquilinos/flask
 
 docker-compose up -d db2
 docker-compose --profile pulsar up
-flask --app src/inquilinos/api --debug run
+flask --app src/inquilinos/api --debug run -p 5001
+
+
+
+Desde el directorio principal desde 3 consolas diferentes ejecute los 3 siguientes comandos en este orden (para contratos)
+
+docker build . -f contratos.Dockerfile -t contratos/flask
+
+docker-compose up -d db
+docker-compose --profile pulsar up
+flask --app src/contratos/api --debug run
 
 ```bash
 flask --app src/aeroalpes/api run
@@ -56,7 +67,7 @@ coverage report
 Desde el directorio principal ejecute el siguiente comando.
 
 ```bash
-docker build . -f aeroalpes.Dockerfile -t aeroalpes/flask
+docker build . -f contratos.Dockerfile -t aeroalpes/flask
 ```
 
 ### Ejecutar contenedora (sin compose)

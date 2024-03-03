@@ -97,6 +97,41 @@ services:
       - "8080:8080"
     command: bash -c "bin/apply-config-from-env.py conf/broker.conf
       &&  exec bin/pulsar broker"
+    # Servicios de AeroAlpes
+  contratos:
+    container_name: contratos
+    hostname: contratos
+    image: contratos/flask 
+    profiles: ["contratos", "monolito"]
+    networks:
+      - sidecar
+      - pulsar
+    labels:
+      SidecarDiscover: "false"
+    depends_on:
+      - broker
+      - db
+    environment:
+      - AEROALPES_ADDRESS=contratos
+      - PULSAR_ADDRESS=broker
+    ports:
+      - "5000:5000"
+  #Mysql
+  db:
+    image: mysql:8
+    hostname: mysqldb
+    container_name: mysqldb
+    cap_add:
+      - SYS_NICE
+    restart: always
+    environment:
+      - MYSQL_DATABASE=contratos
+      - MYSQL_ROOT_PASSWORD=adminadmin
+    profiles: ["contratos", "db"]
+    networks:
+      - pulsar
+    ports:
+      - '3306:3306'
   inquilinos:
     container_name: inquilinos
     hostname: inquilinos
@@ -109,24 +144,24 @@ services:
       SidecarDiscover: "false"
     depends_on:
       - broker
-      - db2
+      - db-inquilinos
     environment:
       - AEROALPES_ADDRESS=inquilinos
       - PULSAR_ADDRESS=broker
     ports:
       - "5000:5000"
   #Mysql
-  db2:
+  db-inquilinos:
     image: mysql:8
-    hostname: mysqldb2
-    container_name: mysqldb2
+    hostname: db-inquilinos
+    container_name: db-inquilinos
     cap_add:
       - SYS_NICE
     restart: always
     environment:
       - MYSQL_DATABASE=contratos
       - MYSQL_ROOT_PASSWORD=adminadmin
-    profiles: ["inquilinos", "db2"]
+    profiles: ["inquilinos", "db-inquilinos"]
     networks:
       - pulsar
     ports:
