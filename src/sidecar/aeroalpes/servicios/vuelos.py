@@ -3,9 +3,9 @@ import requests
 import datetime
 import os
 
-from aeroalpes.pb2py.vuelos_pb2 import Reserva, RespuestaReserva
-from aeroalpes.pb2py.vuelos_pb2_grpc import VuelosServicer
-from aeroalpes.utils import dict_a_proto_itinerarios
+from contratos.pb2py.vuelos_pb2 import Reserva, RespuestaReserva
+from contratos.pb2py.vuelos_pb2_grpc import VuelosServicer
+from contratos.utils import dict_a_proto_itinerarios
 
 from google.protobuf.json_format import MessageToDict
 from google.protobuf.timestamp_pb2 import Timestamp
