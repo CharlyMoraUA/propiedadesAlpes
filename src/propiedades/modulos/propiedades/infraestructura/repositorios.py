@@ -58,7 +58,7 @@ class RepositorioPropiedadsSQLAlchemy(RepositorioPropiedads):
         propiedad_dto.matricula = propiedad.matricula
         propiedad_dto.direccion = propiedad.direccion
         propiedad_dto.area = propiedad.area
-        propiedad_dto.tipo = propiedad.obtener_tipo #ATENCION
+        propiedad_dto.tipo = propiedad.tipo #ATENCION
         db.session.commit()
 
     def eliminar(self, propiedad_id: UUID):
