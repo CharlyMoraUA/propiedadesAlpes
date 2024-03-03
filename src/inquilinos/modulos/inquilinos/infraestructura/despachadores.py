@@ -24,9 +24,7 @@ class Despachador:
         print("publicador")
         print(evento)
         payload = InquilinoCreadoPayload(
-            id=str(evento.id_inquilino), 
-            estado=str(evento.estado), 
-            fecha_creacion=int(unix_time_millis(evento.fecha_creacion))
+            id=str(evento.id_inquilino)
         )
         evento_integracion = EventoInquilinoCreado(data=payload)
         self._publicar_mensaje(evento_integracion, topico, AvroSchema(EventoInquilinoCreado))

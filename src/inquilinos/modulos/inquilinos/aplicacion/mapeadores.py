@@ -1,7 +1,7 @@
 from inquilinos.seedwork.aplicacion.dto import Mapeador as AppMap
 from inquilinos.seedwork.dominio.repositorios import Mapeador as RepMap
 from inquilinos.modulos.inquilinos.dominio.entidades import Inquilino
-from inquilinos.modulos.inquilinos.dominio.objetos_valor import Fecha_inicio, Fecha_fin, Monto
+from inquilinos.modulos.inquilinos.dominio.objetos_valor import nombre, telefono
 from datetime import datetime
 from .dto import InquilinoDTO
 import uuid

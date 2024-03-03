@@ -89,13 +89,8 @@ class RepositorioEventosInquilinoSQLAlchemy(RepositorioEventosInquilinos):
 
         evento_dto = EventosInquilino()
         evento_dto.id = str(evento.id)
-        evento_dto.id_entidad = str(evento.id_inquilino)
-        evento_dto.fecha_evento = evento.fecha_creacion
-        evento_dto.version = str(inquilino_evento.specversion)
-        evento_dto.tipo_evento = evento.__class__.__name__
-        evento_dto.formato_contenido = 'JSON'
-        evento_dto.nombre_servicio = str(inquilino_evento.service_name)
-        evento_dto.contenido = json_str
+        evento_dto.nombre = str(evento.nombre)
+        evento_dto.telefono = evento.telefono
 
         db.session.add(evento_dto)
 

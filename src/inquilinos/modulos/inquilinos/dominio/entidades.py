@@ -27,11 +27,3 @@ class Inquilino(AgregacionRaiz):
         print(inquilino)
 
         self.agregar_evento(InquilinoCreado(id_inquilino=self.id, nombre=self.nombre, telefono=self.telefono))
-
-    """ def firmar_inquilino(self):
-        self.estado = ov.EstadoInquilino.FIRMADO
-        self.agregar_evento(InquilinoFirmado(self.id, self.fecha_actualizacion))
-
-    def procesar_inquilino(self):
-        self.estado = ov.EstadoInquilino.PROCESADO
-        self.agregar_evento(InquilinoProcesado(self.id, self.fecha_actualizacion)) """

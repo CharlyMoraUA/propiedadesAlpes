@@ -34,7 +34,7 @@ def crear_inquilino_asincrono():
         inquilino_dict = request.json
         map_inquilino = MapeadorInquilinoDTOJson()
         inquilino_dto = map_inquilino.externo_a_dto(inquilino_dict)
-        comando = CrearInquilino(inquilino_dto.id, inquilino_dto.fecha_creacion, inquilino_dto.fecha_actualizacion, inquilino_dto.fecha_inicio, inquilino_dto.fecha_fin, inquilino_dto.id_compania, inquilino_dto.id_inquilino, inquilino_dto.id_propiedad, inquilino_dto.monto)
+        comando = CrearInquilino(inquilino_dto.id, inquilino_dto.nombre, inquilino_dto.telefono)
         ejecutar_commando(comando)
         return Response('{}', status=202, mimetype='application/json')
     except ExcepcionDominio as e:
@@ -78,7 +78,7 @@ def actualizar_inquilino_asincrono(id=None):
             inquilino_dict = request.json
             map_inquilino = MapeadorInquilinoDTOJson()
             inquilino_dto = map_inquilino.externo_a_dto(inquilino_dict)
-            comando = ActualizarInquilino(id, inquilino_dto.fecha_creacion, inquilino_dto.fecha_actualizacion, inquilino_dto.fecha_inicio, inquilino_dto.fecha_fin, inquilino_dto.id_compania, inquilino_dto.id_inquilino, inquilino_dto.id_propiedad, inquilino_dto.monto)
+            comando = ActualizarInquilino(id, inquilino_dto.nombre, inquilino_dto.telefono)
             ejecutar_commando(comando)
             return Response('{}', status=202, mimetype='application/json')
         else:

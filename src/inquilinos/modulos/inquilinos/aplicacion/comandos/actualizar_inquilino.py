@@ -12,14 +12,8 @@ from inquilinos.modulos.inquilinos.infraestructura.repositorios import Repositor
 @dataclass
 class ActualizarInquilino(Comando):
     id: str
-    fecha_creacion: str
-    fecha_actualizacion: str
-    fecha_inicio: str
-    fecha_fin: str
-    id_compania: int
-    id_inquilino: int
-    id_propiedad: int
-    monto: float
+    nombre: str
+    telefono: int
 
 class ActualizarInquilinoHandler(CrearInquilinoBaseHandler):
     
@@ -29,14 +23,8 @@ class ActualizarInquilinoHandler(CrearInquilinoBaseHandler):
 
         inquilino_dto = InquilinoDTO(
                 id = comando.id
-            ,   fecha_creacion = comando.fecha_creacion
-            ,   fecha_actualizacion = comando.fecha_actualizacion   
-            ,   fecha_inicio = comando.fecha_inicio
-            ,   fecha_fin = comando.fecha_fin
-            ,   id_compania = comando.id_compania
-            ,   id_inquilino = comando.id_inquilino
-            ,   id_propiedad = comando.id_propiedad
-            ,   monto = comando.monto
+            ,   nombre = comando.nombre
+            ,   telefono = comando.telefono 
                 )
 
         print("ActualizarInquilinoHandler")
