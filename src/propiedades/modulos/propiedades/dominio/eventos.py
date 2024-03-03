@@ -8,5 +8,4 @@ import uuid
 @dataclass
 class PropiedadCreado(EventoDominio):
     id_propiedad: uuid.UUID = None
-    estado: str = None
-    matricula: datetime = None
+    matricula: str = None

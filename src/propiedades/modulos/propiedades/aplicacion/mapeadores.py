@@ -1,7 +1,7 @@
 from propiedades.seedwork.aplicacion.dto import Mapeador as AppMap
 from propiedades.seedwork.dominio.repositorios import Mapeador as RepMap
 from propiedades.modulos.propiedades.dominio.entidades import Propiedad
-from propiedades.modulos.propiedades.dominio.objetos_valor import area, Fecha_fin, area
+from propiedades.modulos.propiedades.dominio.objetos_valor import Area, Matricula, Direccion, Tipo
 from datetime import datetime
 from .dto import PropiedadDTO
 import uuid

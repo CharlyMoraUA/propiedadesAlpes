@@ -91,7 +91,7 @@ class RepositorioEventosPropiedadSQLAlchemy(RepositorioEventosPropiedads):
         evento_dto = EventosPropiedad()
         evento_dto.id = str(evento.id)
         evento_dto.id_entidad = str(evento.id_propiedad)
-        evento_dto.fecha_evento = evento.matricula
+        evento_dto.fecha_evento = evento.fecha_evento
         evento_dto.version = str(propiedad_evento.specversion)
         evento_dto.tipo_evento = evento.__class__.__name__
         evento_dto.formato_contenido = 'JSON'

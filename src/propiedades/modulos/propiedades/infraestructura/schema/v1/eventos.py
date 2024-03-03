@@ -3,8 +3,8 @@ from propiedades.seedwork.infraestructura.schema.v1.eventos import EventoIntegra
 
 class PropiedadCreadoPayload(Record):
     id = String()
-    estado = String()
-    matricula = Long()
+    matricula = String()
 
 class EventoPropiedadCreado(EventoIntegracion):
     data = PropiedadCreadoPayload()
+    

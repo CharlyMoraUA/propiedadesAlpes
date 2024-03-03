@@ -25,8 +25,7 @@ class Despachador:
         print(evento)
         payload = PropiedadCreadoPayload(
             id=str(evento.id_propiedad), 
-            estado=str(evento.estado), 
-            matricula=int(unix_time_millis(evento.matricula))
+            matricula=str(evento.matricula)
         )
         evento_integracion = EventoPropiedadCreado(data=payload)
         self._publicar_mensaje(evento_integracion, topico, AvroSchema(EventoPropiedadCreado))

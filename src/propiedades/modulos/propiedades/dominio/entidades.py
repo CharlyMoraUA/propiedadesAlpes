@@ -14,26 +14,21 @@ from propiedades.seedwork.dominio.entidades import Locacion, AgregacionRaiz, Ent
 @dataclass
 class Propiedad(AgregacionRaiz):
     id: uuid.UUID = field(hash=True, default=None)
-    estado: ov.EstadoPropiedad = field(default=ov.EstadoPropiedad.PENDIENTE)
+    matricula: ov.Matricula = field(hash=True, default=None)
+    direccion: ov.Direccion = field(hash=True, default=None)
     area: ov.Area = field(hash=True, default=None)
-    fecha_fin: ov.Fecha_fin = field(hash=True, default=None)
-    id_compania: ov.id_compania = field(hash=True, default=None)
-    id_inquilino: ov.id_inquilino = field(hash=True, default=None)
-    id_propiedad: ov.id_propiedad = field(hash=True, default=None)
-    armatriculaea: ov.Matricula = field(hash=True, default=None)
+    tipo: ov.Tipo = field(hash=True, default=None)
 
     def crear_propiedad(self, propiedad: Propiedad):
         self.id = propiedad.id
-        self.estado = propiedad.estado
+        self.matricula = propiedad.matricula
+        self.direccion = propiedad.area
         self.area = propiedad.area
-        self.fecha_fin = propiedad.fecha_fin
-        self.id_compania = propiedad.id_compania
-        self.id_inquilino = propiedad.id_inquilino
-        self.id_propiedad = propiedad.id_propiedad
-        self.area = propiedad.area
+        self.tipo = propiedad.tipo
 
         print("propiedad2:")
         print(propiedad)
 
-        self.agregar_evento(PropiedadCreado(id_propiedad=self.id, estado=self.estado.name, matricula=self.matricula))
+            #ATENCION
+        self.agregar_evento(PropiedadCreado(id_propiedad=self.id, matricula=self.matricula))
 

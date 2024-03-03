@@ -6,7 +6,7 @@ encargados de la transformación entre formatos de dominio y DTOs
 """
 
 from propiedades.seedwork.dominio.repositorios import Mapeador
-from propiedades.modulos.propiedades.dominio.objetos_valor import area, Fecha_fin, area
+from propiedades.modulos.propiedades.dominio.objetos_valor import Matricula, Direccion, Area, Tipo
 from propiedades.modulos.propiedades.dominio.entidades import Propiedad
 from .dto import Propiedad as PropiedadDTO
 import uuid

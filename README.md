@@ -19,11 +19,21 @@ Este repositorio sigue en general la misma estructura del repositorio de origen.
     - **seedwork/infraestructura/uow.py**: La Unidad de Trabajo (UoW) mantiene una lista de objetos afectados por una transacción de negocio y coordina los cambios de escritura. Este objeto nos va ser de gran importancia, pues cuando comenzamos a usar eventos de dominio e interactuar con otros módulos, debemos ser capaces de garantizar consistencia entre los diferentes objetos y partes de nuestro sistema.
 
 ### Ejecutar Aplicación
+#ATENCION
+docker stop $(docker ps -a -q)
+docker rm $(docker ps -a -q)
+
+docker build . -f propiedades.Dockerfile -t propiedades/flask
+flask --app src/propiedades/api --debug run -p 5001
 
 Desde el directorio principal desde 3 consolas diferentes ejecute los 3 siguientes comandos en este orden
-docker-compose up -d db
+docker-compose up -d db-propiedades
 docker-compose --profile pulsar up
-flask --app src/aeroalpes/api --debug run
+flask --app src/propiedades/api --debug run
+
+
+
+find . -name "__pycache__" -exec rm -r {} +
 
 ```bash
 flask --app src/aeroalpes/api run

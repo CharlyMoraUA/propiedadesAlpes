@@ -50,7 +50,7 @@ class CrearPropiedadHandler(CrearPropiedadBaseHandler):
 
 
         UnidadTrabajoPuerto.registrar_batch(repositorio.agregar, propiedad)
-        #UnidadTrabajoPuerto.savepoint()
+        # UnidadTrabajoPuerto.savepoint()
         UnidadTrabajoPuerto.commit()
 
 

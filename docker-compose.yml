@@ -169,3 +169,38 @@ services:
       - pulsar
     ports:
       - '3306:3306'
+
+  propiedades:
+    container_name: propiedades
+    hostname: propiedades
+    image: propiedades/flask 
+    profiles: ["propiedades", "monolito"]
+    networks:
+      - sidecar
+      - pulsar
+    labels:
+      SidecarDiscover: "false"
+    depends_on:
+      - broker
+      - db
+    environment:
+      - AEROALPES_ADDRESS=propiedades
+      - PULSAR_ADDRESS=broker
+    ports:
+      - "5000:5000"
+  #Mysql
+  db-propiedades:
+    image: mysql:8
+    hostname: db-propiedades
+    container_name: db-propiedades
+    cap_add:
+      - SYS_NICE
+    restart: always
+    environment:
+      - MYSQL_DATABASE=propiedades
+      - MYSQL_ROOT_PASSWORD=adminadmin
+    profiles: ["propiedades", "db-propiedades"]
+    networks:
+      - pulsar
+    ports:
+      - '3306:3306'
