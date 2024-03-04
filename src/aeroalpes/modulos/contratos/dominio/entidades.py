@@ -9,6 +9,7 @@ from dataclasses import dataclass, field
 
 import aeroalpes.modulos.contratos.dominio.objetos_valor as ov
 from aeroalpes.modulos.contratos.dominio.eventos import ContratoCreado
+from aeroalpes.modulos.contratos.infraestructura.despachadores import Despachador
 from aeroalpes.seedwork.dominio.entidades import Locacion, AgregacionRaiz, Entidad
 
 @dataclass
@@ -35,6 +36,9 @@ class Contrato(AgregacionRaiz):
         print("contrato2:")
         print(contrato)
 
+        despachador = Despachador()
+        despachador.publicar_evento(ContratoCreado(id_contrato=self.id, estado=self.estado.name, fecha_creacion=self.fecha_creacion), 'eventos-propiedad')
+        
         self.agregar_evento(ContratoCreado(id_contrato=self.id, estado=self.estado.name, fecha_creacion=self.fecha_creacion))
 
     """ def firmar_contrato(self):
