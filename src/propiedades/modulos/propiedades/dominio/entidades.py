@@ -10,6 +10,7 @@ from dataclasses import dataclass, field
 import propiedades.modulos.propiedades.dominio.objetos_valor as ov
 from propiedades.modulos.propiedades.dominio.eventos import PropiedadCreado
 from propiedades.seedwork.dominio.entidades import Locacion, AgregacionRaiz, Entidad
+from propiedades.modulos.propiedades.infraestructura.despachadores import Despachador
 
 @dataclass
 class Propiedad(AgregacionRaiz):
@@ -29,6 +30,8 @@ class Propiedad(AgregacionRaiz):
         print("propiedad2:")
         print(propiedad)
 
+        despachador = Despachador()
+        despachador.publicar_evento(PropiedadCreado(id_propiedad=self.id, matricula=self.matricula), 'eventos-propiedad')
             #ATENCION
         self.agregar_evento(PropiedadCreado(id_propiedad=self.id, matricula=self.matricula))
 

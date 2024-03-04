@@ -28,6 +28,7 @@ flask --app src/aeroalpes/api --debug run -p 5001
 flask --app src/companias/api --debug run -p 5002
 flask --app src/inquilinos/api --debug run -p 5003
 flask --app src/propiedades/api --debug run -p 5004
+flask --app src/procesador/api --debug run -p 5005
 
 Desde el directorio principal desde 3 consolas diferentes ejecute los 3 siguientes comandos en este orden
 docker-compose up -d db
@@ -39,6 +40,24 @@ docker-compose --profile pulsar up
 
 
 find . -name "__pycache__" -exec rm -r {} +
+
+
+pulsar puede estar fallando por los archivos en la carpeta data,
+borrar la carpeta y volver a crear con los siguientes comandos permite que se ejecute normalmente
+(extraido del .gitpod)
+
+mkdir -p data/bookkeeper && 
+      mkdir -p data/zookeeper && 
+      sudo chmod -R 777 ./data
+
+COMANDOS PULSAR (abrir una consola del contenedor broker)
+
+bin/pulsar-admin topics list public/default
+bin/pulsar-admin topics subscriptions persistent://public/default/<topico>
+bin/pulsar-admin topics subscriptions persistent://public/default/eventos-propiedad
+bin/pulsar-admin topics stats persistent://public/default/<topico>
+bin/pulsar-admin topics stats persistent://public/default/eventos-propiedad
+
 
 ```bash
 flask --app src/aeroalpes/api run

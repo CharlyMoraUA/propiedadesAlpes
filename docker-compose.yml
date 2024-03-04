@@ -147,10 +147,13 @@ services:
       SidecarDiscover: "false"
     depends_on:
       - broker
-      - db
+      - db2
     environment:
       - AEROALPES_ADDRESS=inquilinos
       - PULSAR_ADDRESS=broker
+      - DB_USERNAME=root
+      - DB_PASSWORD=adminadmin
+      - DB_HOSTNAME=mysqldb2:3306
     ports:
       - "5000:5000"
   #Mysql
