@@ -1,0 +1,6 @@
+FROM mysql
+
+ENV MYSQL_DATABASE=inquilinos
+ENV MYSQL_ROOT_PASSWORD=adminadmin
+
+EXPOSE 3308
