@@ -9,6 +9,7 @@ from dataclasses import dataclass, field
 
 import companias.modulos.companias.dominio.objetos_valor as ov
 from companias.modulos.companias.dominio.eventos import CompaniaCreada
+from companias.modulos.companias.infraestructura.despachadores import Despachador
 from companias.seedwork.dominio.entidades import AgregacionRaiz
 
 @dataclass
@@ -27,5 +28,8 @@ class Compania(AgregacionRaiz):
         self.nombre = compania.nombre
         self.direccion = compania.direccion
         self.telefono = compania.telefono
+        
+        # despachador = Despachador()
+        # despachador.publicar_evento(CompaniaCreada(id_compania=self.id, estado=self.estado.name, fecha_creacion=self.fecha_creacion), 'eventos-compania')
 
         self.agregar_evento(CompaniaCreada(id_compania=self.id, estado=self.estado.name, fecha_creacion=self.fecha_creacion))

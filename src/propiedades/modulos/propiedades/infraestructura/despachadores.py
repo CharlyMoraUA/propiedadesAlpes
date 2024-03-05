@@ -16,12 +16,14 @@ class Despachador:
     def _publicar_mensaje(self, mensaje, topico, schema):
         cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
         publicador = cliente.create_producer(topico, schema=AvroSchema(EventoPropiedadCreado))
+        print("+++++++++++++++++++mensaje1")
+        print(mensaje)
         publicador.send(mensaje)
         cliente.close()
 
     def publicar_evento(self, evento, topico):
         # TODO Debe existir un forma de crear el Payload en Avro con base al tipo del evento
-        print("publicador")
+        print("++++++++++++++++publicador1")
         print(evento)
         payload = PropiedadCreadoPayload(
             id=str(evento.id_propiedad), 
@@ -31,6 +33,8 @@ class Despachador:
         self._publicar_mensaje(evento_integracion, topico, AvroSchema(EventoPropiedadCreado))
 
     def publicar_comando(self, comando, topico):
+        print("+++++++++++++++publicador2")
+        print(evento)
         # TODO Debe existir un forma de crear el Payload en Avro con base al tipo del comando
         payload = ComandoCrearPropiedadPayload(
             id_usuario=str(comando.id_usuario)
