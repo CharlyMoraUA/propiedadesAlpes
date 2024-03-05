@@ -12,11 +12,6 @@ class MapeadorInquilinoDTOJson(AppMap):
     
     def externo_a_dto(self, externo: dict) -> InquilinoDTO:
         inquilino_dto = InquilinoDTO(str(uuid.uuid4()),externo.get("nombre"),externo.get("telefono"))
-        print("inquilino_dto3")
-        print(inquilino_dto)
-        print("EXTERNO")
-        print(externo)
-
         return inquilino_dto
 
     def dto_a_externo(self, dto: InquilinoDTO) -> dict:
@@ -28,8 +23,6 @@ class MapeadorInquilino(RepMap):
         return Inquilino.__class__
 
     def entidad_a_dto(self, entidad: Inquilino) -> InquilinoDTO:
-        print("entidad_a_dto_aplicacion")
-        print(entidad)
         _id = str(entidad.id)
         nombre = entidad.nombre
         telefono = entidad.telefono
@@ -38,8 +31,6 @@ class MapeadorInquilino(RepMap):
 
     def dto_a_entidad(self, dto: InquilinoDTO) -> Inquilino:
         inquilino = Inquilino()
-        print("dto_a_entidad_aplicacion:")
-        print(inquilino)
         inquilino.id = dto.id
         inquilino.nombre = dto.nombre
         inquilino.telefono = dto.telefono

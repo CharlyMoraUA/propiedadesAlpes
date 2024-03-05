@@ -23,11 +23,6 @@ class Inquilino(AgregacionRaiz):
         self.id = inquilino.id
         self.nombre = inquilino.nombre
         self.telefono = inquilino.telefono
-
-        print("inquilino2:")
-        print(inquilino)
-
         # despachador = Despachador()
         # despachador.publicar_evento(InquilinoCreado(id_inquilino=self.id, nombre=self.nombre, telefono=self.telefono), 'eventos-inquilino')
-
         self.agregar_evento(InquilinoCreado(id_inquilino=self.id, nombre=self.nombre, telefono=self.telefono))
