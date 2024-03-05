@@ -111,53 +111,135 @@ services:
       SidecarDiscover: "false"
     depends_on:
       - broker
+      - db
     environment:
       - AEROALPES_ADDRESS=aeroalpes
       - PULSAR_ADDRESS=broker
     ports:
       - "5000:5000"
-  adaptador:
-    image: "aeroalpes/adaptador"
-    profiles: ["aeroalpes", "monolito"]
-    container_name: adaptador
-    hostname: adaptador
-    depends_on:
-      - aeroalpes
+  #Mysql
+  db:
+    image: mysql:8
+    hostname: mysqldb
+    container_name: mysqldb
+    cap_add:
+      - SYS_NICE
+    restart: always
+    environment:
+      - MYSQL_DATABASE=contratos
+      - MYSQL_ROOT_PASSWORD=adminadmin
+    profiles: ["aeroalpes", "db"]
+    networks:
+      - pulsar
+    ports:
+      - '3307:3306'
+
+
+  inquilinos:
+    container_name: inquilinos
+    hostname: inquilinos
+    image: inquilinos/flask 
+    profiles: ["inquilinos", "monolito"]
     networks:
       - sidecar
+      - pulsar
+    labels:
+      SidecarDiscover: "false"
+    depends_on:
+      - broker
+      - db-inquilinos
     environment:
-      - AEROALPES_ADDRESS=aeroalpes
+      - AEROALPES_ADDRESS=inquilinos
       - PULSAR_ADDRESS=broker
+      - DB_USERNAME=root
+      - DB_PASSWORD=adminadmin
+      - DB_HOSTNAME=db-inquilinos:3306
     ports:
-      - "50051:50051"
+      - "5000:5000"
+  #Mysql
+  db-inquilinos:
+    image: mysql:8
+    hostname: db-inquilinos
+    container_name: db-inquilinos
+    cap_add:
+      - SYS_NICE
+    restart: always
+    environment:
+      - MYSQL_DATABASE=contratos
+      - MYSQL_ROOT_PASSWORD=adminadmin
+    profiles: ["inquilinos", "db-inquilinos"]
+    networks:
+      - pulsar
+    ports:
+      - '3308:3306'
+
+  #Servicio de compañias
+  companias:
+      container_name: companias
+      hostname: companias
+      image: companias/flask 
+      profiles: ["companias", "monolito"]
+      networks:
+        - sidecar
+        - pulsar
+      labels:
+        SidecarDiscover: "false"
+      depends_on:
+        - broker
+        - db_companias
+      environment:
+        - AEROALPES_ADDRESS=companias
+        - PULSAR_ADDRESS=broker
+      ports:
+        - "5002:5000"
+  #Mysql
+  db_companias:
+    image: mysql:8
+    hostname: db_companias
+    container_name: db_companias
+    cap_add:
+      - SYS_NICE
+    restart: always
+    environment:
+      - MYSQL_DATABASE=companias
+      - MYSQL_ROOT_PASSWORD=adminadmin
+    profiles: ["companias", "db_companias"]
+    networks:
+      - pulsar
+    ports:
+      - '3309:3306'
   
-  # Servicios de Notificación
-  notificacion:
-    container_name: notificacion
-    hostname: notificacion
-    image: aeroalpes/notificacion 
-    profiles: ["aeroalpes", "notificacion"]
-    depends_on:
-      - aeroalpes
-      - broker
-    environment:
-      - AEROALPES_ADDRESS=aeroalpes
-      - PULSAR_ADDRESS=broker
+  propiedades:
+    container_name: propiedades
+    hostname: propiedades
+    image: propiedades/flask 
+    profiles: ["propiedades", "monolito"]
     networks:
+      - sidecar
       - pulsar
-  # Servicio UI
-  ui:
-    container_name: ui
-    hostname: ui
-    image: aeroalpes/ui 
-    profiles: ["aeroalpes", "ui"]
+    labels:
+      SidecarDiscover: "false"
     depends_on:
-      - aeroalpes
       - broker
+      - db
     environment:
-      - AEROALPES_ADDRESS=aeroalpes
+      - AEROALPES_ADDRESS=propiedades
       - PULSAR_ADDRESS=broker
+    ports:
+      - "5000:5000"
+  #Mysql
+  db-propiedades:
+    image: mysql:8
+    hostname: db-propiedades
+    container_name: db-propiedades
+    cap_add:
+      - SYS_NICE
+    restart: always
+    environment:
+      - MYSQL_DATABASE=propiedades
+      - MYSQL_ROOT_PASSWORD=adminadmin
+    profiles: ["propiedades", "db-propiedades"]
     networks:
       - pulsar
     ports:
-      - "5678:5678"
+      - '3310:3306'

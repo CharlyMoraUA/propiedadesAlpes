@@ -1,6 +1,10 @@
-# Entrega 3 - CQRS y manejo de eventos
+ # Entrega 4 - Prueba de concepto experimentación (entrega parcial)
 
-Repositorio con código de la implementación de la entrega 3
+Repositorio con código de la implementación de la entrega 4
+
+## Descripción de actividades realizadas por cada miembro del equipo:
+
+https://uniandes-my.sharepoint.com/:w:/g/personal/d_chala_uniandes_edu_co/EfFy2FoZkuJLpw1aIypSdgMBkWHQkq1dCzGeVlzRl20ssg?e=GPHxH
 
 ## Estructura del proyecto
 
@@ -19,8 +23,45 @@ Este repositorio sigue en general la misma estructura del repositorio de origen.
     - **seedwork/infraestructura/uow.py**: La Unidad de Trabajo (UoW) mantiene una lista de objetos afectados por una transacción de negocio y coordina los cambios de escritura. Este objeto nos va ser de gran importancia, pues cuando comenzamos a usar eventos de dominio e interactuar con otros módulos, debemos ser capaces de garantizar consistencia entre los diferentes objetos y partes de nuestro sistema.
 
 ### Ejecutar Aplicación
+#ATENCION
+docker stop $(docker ps -a -q)
+docker rm $(docker ps -a -q)
 
-Desde el directorio principal ejecute el siguiente comando.
+docker build . -f propiedades.Dockerfile -t propiedades/flask
+flask --app src/aeroalpes/api --debug run -p 5001
+flask --app src/companias/api --debug run -p 5002
+flask --app src/inquilinos/api --debug run -p 5003
+flask --app src/propiedades/api --debug run -p 5004
+flask --app src/procesador/api --debug run -p 5005
+
+Desde el directorio principal desde 3 consolas diferentes ejecute los 3 siguientes comandos en este orden
+docker-compose up -d db
+docker-compose up -d db-inquilinos
+docker-compose up -d db_companias
+docker-compose up -d db-propiedades
+docker-compose --profile pulsar up
+
+
+
+find . -name "__pycache__" -exec rm -r {} +
+
+
+pulsar puede estar fallando por los archivos en la carpeta data,
+borrar la carpeta y volver a crear con los siguientes comandos permite que se ejecute normalmente
+(extraido del .gitpod)
+
+mkdir -p data/bookkeeper && 
+      mkdir -p data/zookeeper && 
+      sudo chmod -R 777 ./data
+
+COMANDOS PULSAR (abrir una consola del contenedor broker)
+
+bin/pulsar-admin topics list public/default
+bin/pulsar-admin topics subscriptions persistent://public/default/<topico>
+bin/pulsar-admin topics subscriptions persistent://public/default/eventos-propiedad
+bin/pulsar-admin topics stats persistent://public/default/<topico>
+bin/pulsar-admin topics stats persistent://public/default/eventos-propiedad
+
 
 ```bash
 flask --app src/aeroalpes/api run
