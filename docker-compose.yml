@@ -147,27 +147,27 @@ services:
       SidecarDiscover: "false"
     depends_on:
       - broker
-      - db2
+      - db-inquilinos
     environment:
       - AEROALPES_ADDRESS=inquilinos
       - PULSAR_ADDRESS=broker
       - DB_USERNAME=root
       - DB_PASSWORD=adminadmin
-      - DB_HOSTNAME=mysqldb2:3306
+      - DB_HOSTNAME=db-inquilinos:3306
     ports:
       - "5000:5000"
   #Mysql
-  db2:
+  db-inquilinos:
     image: mysql:8
-    hostname: mysqldb2
-    container_name: mysqldb2
+    hostname: db-inquilinos
+    container_name: db-inquilinos
     cap_add:
       - SYS_NICE
     restart: always
     environment:
       - MYSQL_DATABASE=contratos
       - MYSQL_ROOT_PASSWORD=adminadmin
-    profiles: ["inquilinos", "db2"]
+    profiles: ["inquilinos", "db-inquilinos"]
     networks:
       - pulsar
     ports:

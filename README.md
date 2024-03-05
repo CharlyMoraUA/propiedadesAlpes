@@ -32,7 +32,7 @@ flask --app src/procesador/api --debug run -p 5005
 
 Desde el directorio principal desde 3 consolas diferentes ejecute los 3 siguientes comandos en este orden
 docker-compose up -d db
-docker-compose up -d db2
+docker-compose up -d db-inquilinos
 docker-compose up -d db_companias
 docker-compose up -d db-propiedades
 docker-compose --profile pulsar up
