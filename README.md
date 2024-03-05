@@ -1,6 +1,10 @@
-# Entrega 3 - CQRS y manejo de eventos
+ # Entrega 4 - Prueba de concepto experimentación (entrega parcial)
 
-Repositorio con código de la implementación de la entrega 3
+Repositorio con código de la implementación de la entrega 4
+
+## Descripción de actividades realizadas por cada miembro del equipo:
+
+https://uniandes-my.sharepoint.com/:w:/g/personal/d_chala_uniandes_edu_co/EfFy2FoZkuJLpw1aIypSdgMBkWHQkq1dCzGeVlzRl20ssg?e=GPHxH
 
 ## Estructura del proyecto
 
