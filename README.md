@@ -6,6 +6,10 @@ Repositorio con código de la implementación de la entrega 4
 
 https://uniandes-my.sharepoint.com/:w:/g/personal/d_chala_uniandes_edu_co/EfFy2FoZkuJLpw1aIypSdgMBkWHQkq1dCzGeVlzRl20ssg?e=GPHxH
 
+## Postman de ejecución de pruebas (documentación):
+
+https://documenter.getpostman.com/view/33329544/2sA2xcbFWC
+
 ## Estructura del proyecto
 
 Este repositorio sigue en general la misma estructura del repositorio de origen. Sin embargo, hay un par de adiciones importante mencionar:
