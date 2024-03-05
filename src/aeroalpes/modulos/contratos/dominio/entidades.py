@@ -36,8 +36,8 @@ class Contrato(AgregacionRaiz):
         print("contrato2:")
         print(contrato)
 
-        despachador = Despachador()
-        despachador.publicar_evento(ContratoCreado(id_contrato=self.id, estado=self.estado.name, fecha_creacion=self.fecha_creacion), 'eventos-contrato')
+        # despachador = Despachador()
+        # despachador.publicar_evento(ContratoCreado(id_contrato=self.id, estado=self.estado.name, fecha_creacion=self.fecha_creacion), 'eventos-contrato')
         
         self.agregar_evento(ContratoCreado(id_contrato=self.id, estado=self.estado.name, fecha_creacion=self.fecha_creacion))
 

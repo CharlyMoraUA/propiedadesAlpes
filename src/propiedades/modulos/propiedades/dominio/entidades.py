@@ -30,8 +30,8 @@ class Propiedad(AgregacionRaiz):
         print("propiedad2:")
         print(propiedad)
 
-        despachador = Despachador()
-        despachador.publicar_evento(PropiedadCreado(id_propiedad=self.id, matricula=self.matricula), 'eventos-propiedad')
+        # despachador = Despachador()
+        # despachador.publicar_evento(PropiedadCreado(id_propiedad=self.id, matricula=self.matricula), 'eventos-propiedad')
             #ATENCION
         self.agregar_evento(PropiedadCreado(id_propiedad=self.id, matricula=self.matricula))
 

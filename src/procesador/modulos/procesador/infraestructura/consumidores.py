@@ -13,7 +13,14 @@ def suscribirse_a_eventos():
     cliente = None
     try:
         cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
-        consumidor = cliente.subscribe('eventos-propiedad', consumer_type=_pulsar.ConsumerType.Shared,subscription_name='propiedades-sub-eventos-procesador', schema=AvroSchema(EventoProcesadorCreado))
+
+        # topics = ['eventos-propiedad', 'eventos-compania', 'eventos-inquilino', 'eventos-contrato']
+        topics = ['persistent://public/default/eventos-propiedad', 
+        'persistent://public/default/eventos-compania',
+        'persistent://public/default/eventos-inquilino',
+        'persistent://public/default/eventos-contrato'
+        ]
+        consumidor = cliente.subscribe(topics, consumer_type=_pulsar.ConsumerType.Shared,subscription_name='sub-eventos-procesador', schema=AvroSchema(EventoProcesadorCreado))
 
         while True:
             mensaje = consumidor.receive()

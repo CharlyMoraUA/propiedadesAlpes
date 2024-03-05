@@ -29,7 +29,7 @@ class Compania(AgregacionRaiz):
         self.direccion = compania.direccion
         self.telefono = compania.telefono
         
-        despachador = Despachador()
-        despachador.publicar_evento(CompaniaCreada(id_compania=self.id, estado=self.estado.name, fecha_creacion=self.fecha_creacion), 'eventos-compania')
+        # despachador = Despachador()
+        # despachador.publicar_evento(CompaniaCreada(id_compania=self.id, estado=self.estado.name, fecha_creacion=self.fecha_creacion), 'eventos-compania')
 
         self.agregar_evento(CompaniaCreada(id_compania=self.id, estado=self.estado.name, fecha_creacion=self.fecha_creacion))

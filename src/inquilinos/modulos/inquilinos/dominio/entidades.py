@@ -10,6 +10,7 @@ from dataclasses import dataclass, field
 import inquilinos.modulos.inquilinos.dominio.objetos_valor as ov
 from inquilinos.modulos.inquilinos.dominio.eventos import InquilinoCreado
 from inquilinos.seedwork.dominio.entidades import Locacion, AgregacionRaiz, Entidad
+from inquilinos.modulos.inquilinos.infraestructura.despachadores import Despachador
 
 @dataclass
 class Inquilino(AgregacionRaiz):
@@ -25,5 +26,8 @@ class Inquilino(AgregacionRaiz):
 
         print("inquilino2:")
         print(inquilino)
+
+        # despachador = Despachador()
+        # despachador.publicar_evento(InquilinoCreado(id_inquilino=self.id, nombre=self.nombre, telefono=self.telefono), 'eventos-inquilino')
 
         self.agregar_evento(InquilinoCreado(id_inquilino=self.id, nombre=self.nombre, telefono=self.telefono))
