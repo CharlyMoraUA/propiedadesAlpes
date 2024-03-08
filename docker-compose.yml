@@ -116,7 +116,7 @@ services:
       - AEROALPES_ADDRESS=aeroalpes
       - PULSAR_ADDRESS=broker
     ports:
-      - "5000:5000"
+      - "5001:5000"
   #Mysql
   db:
     image: mysql:8
@@ -155,7 +155,7 @@ services:
       - DB_PASSWORD=adminadmin
       - DB_HOSTNAME=db-inquilinos:3306
     ports:
-      - "5000:5000"
+      - "5003:5000"
   #Mysql
   db-inquilinos:
     image: mysql:8
@@ -226,7 +226,7 @@ services:
       - AEROALPES_ADDRESS=propiedades
       - PULSAR_ADDRESS=broker
     ports:
-      - "5000:5000"
+      - "5004:5000"
   #Mysql
   db-propiedades:
     image: mysql:8
@@ -243,3 +243,19 @@ services:
       - pulsar
     ports:
       - '3310:3306'
+  # Servicio BFF
+  bff:
+    container_name: bff
+    hostname: bff
+    image: aeroalpes/bff 
+    profiles: ["aeroalpes", "bff"]
+    depends_on:
+      - aeroalpes
+      - broker
+    environment:
+      - AEROALPES_ADDRESS=aeroalpes
+      - BROKER_HOST=broker
+    networks:
+      - pulsar
+    ports:
+      - "8003:8003"
