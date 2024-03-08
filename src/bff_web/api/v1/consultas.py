@@ -4,4 +4,4 @@ from .esquemas import *
 
 @strawberry.type
 class Query:
-    contrato: "Contrato" = strawberry.field(resolver=obtener_contrato)
+    contratos: typing.List[Contrato] = strawberry.field(resolver=obtener_contratos)
