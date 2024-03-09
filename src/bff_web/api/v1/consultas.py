@@ -9,3 +9,9 @@ class Query:
     @strawberry.field
     def contrato(self, id: str) -> Contrato:
         return obtener_contrato(id)
+    
+    propiedades: typing.List[Propiedad] = strawberry.field(resolver=obtener_propiedades)
+    
+    @strawberry.field
+    def propiedad(self, id: str) -> Propiedad:
+        return obtener_propiedad(id)

@@ -48,6 +48,47 @@ def obtener_contrato(id_contrato: str) -> "Contrato":
     return contrato
 
 
+
+
+def obtener_propiedades(root) -> typing.List["Propiedad"]:
+    propiedades_json = requests.get(f'http://{PROPIEDADESALPES_HOST}:5003/propiedades/propiedades-query').json()
+    propiedades = []
+
+    for propiedad in propiedades_json:
+        propiedades.append(
+            Propiedad(
+                id=propiedad.get('id'),
+                area=propiedad.get('area'), 
+                direccion=propiedad.get('direccion'), 
+                matricula=propiedad.get('matricula'),
+                tipo=propiedad.get('tipo')
+            )
+        )
+
+    return propiedades
+
+def obtener_propiedad(id_propiedad: str) -> "Propiedad":
+    propiedades_json = requests.get(f'http://{PROPIEDADESALPES_HOST}:5003/contratos/contrato-query/'+id_propiedad).json()
+    propiedad = Propiedad(
+                id=propiedad.get('id'),
+                area=propiedad.get('area'), 
+                direccion=propiedad.get('direccion'), 
+                matricula=propiedad.get('matricula'),
+                tipo=propiedad.get('tipo')
+            )
+    return propiedad
+
+
+
+
+
+
+
+
+
+
+
+
 @strawberry.type
 class Contrato:
     id: str
@@ -65,6 +106,18 @@ class ContratoRespuesta:
     mensaje: str
     codigo: int
 
+@strawberry.type
+class Propiedad:
+    id: str
+    area: float
+    direccion: str
+    matricula: str
+    tipo: str
+
+@strawberry.type
+class PropiedadRespuesta:
+    mensaje: str
+    codigo: int
 
 
 
