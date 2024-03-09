@@ -16,6 +16,7 @@ class VistaCompania(Vista):
                 documento_identidad=compania_dto.documento_identidad,
                 nombre=compania_dto.nombre,
                 direccion=compania_dto.direccion,
+                telefono=compania_dto.telefono
                 ))
         
         return companias
