@@ -31,7 +31,7 @@ def obtener_contratos(root) -> typing.List["Contrato"]:
 
     return contratos
 
-def obtener_contrato(root, id_contrato: str) -> "Contrato":
+def obtener_contrato(id_contrato: str) -> "Contrato":
     print(id_contrato)
     contratos_json = requests.get(f'http://{PROPIEDADESALPES_HOST}:5000/contratos/contrato-query/'+id_contrato).json()
     contrato = Contrato(
