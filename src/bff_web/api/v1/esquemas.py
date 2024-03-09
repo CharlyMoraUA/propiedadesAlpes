@@ -31,6 +31,28 @@ def obtener_contratos(root) -> typing.List["Contrato"]:
 
     return contratos
 
+def obtener_contrato(root, id_contrato) -> typing.List["Contrato"]:
+    print(id_contrato)
+    contratos_json = requests.get(f'http://{PROPIEDADESALPES_HOST}:5001/contratos/contrato-query/'+id_contrato).json()
+    contratos = []
+
+    for contrato in contratos_json:
+        contratos.append(
+            Contrato(
+                fecha_creacion=datetime.strptime(contrato.get('fecha_creacion'), FORMATO_FECHA), 
+                fecha_actualizacion=datetime.strptime(contrato.get('fecha_actualizacion'), FORMATO_FECHA), 
+                id=contrato.get('id'),
+                fecha_inicio=datetime.strptime(contrato.get('fecha_inicio'), FORMATO_FECHA),
+                fecha_fin=datetime.strptime(contrato.get('fecha_fin'), FORMATO_FECHA),
+                id_compania=contrato.get('id_compania'),
+                id_inquilino=contrato.get('id_inquilino'),
+                id_propiedad=contrato.get('id_propiedad'),
+                monto=contrato.get('monto')
+            )
+        )
+
+    return contratos
+
 @strawberry.type
 class Contrato:
     id: str
