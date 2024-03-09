@@ -8,16 +8,13 @@ class VistaPropiedad(Vista):
         propiedades_dto = db.session.query(PropiedadDTO).all()
         propiedades = list()
 
-        for propieda_dto in propiedades_dto:
-            propiedades.append(Propiedad(id=propieda_dto.id, 
-                fecha_creacion=propieda_dto.fecha_creacion, 
-                fecha_actualizacion=propieda_dto.fecha_actualizacion,
-                fecha_inicio=propieda_dto.fecha_inicio,
-                fecha_fin=propieda_dto.fecha_fin,
-                id_compania=propieda_dto.id_compania,
-                id_inquilino=propieda_dto.id_inquilino,
-                id_propiedad=propieda_dto.id_propiedad,
-                monto=propieda_dto.monto
+        for propiedad_dto in propiedades_dto:
+            propiedades.append(Propiedad(
+                id=propiedad_dto.id, 
+                matricula=propiedad_dto.matricula,
+                direccion=propiedad_dto.direccion,
+                area=propiedad_dto.area,
+                tipo=propiedad_dto.tipo
                 ))
         
         return propiedades
