@@ -20,5 +20,5 @@ class Query:
     inquilinos: typing.List[Inquilino] = strawberry.field(resolver=obtener_inquilinos)
     
     @strawberry.field
-    def propiedad(self, id: str) -> Inquilino:
+    def inquilino(self, id: str) -> Inquilino:
         return obtener_inquilino(id)
