@@ -6,6 +6,7 @@ class InquilinoQueryBaseHandler(QueryHandler):
     def __init__(self):
         self._fabrica_repositorio: FabricaRepositorio = FabricaRepositorio()
         self._fabrica_inquilinos: FabricaInquilinos = FabricaInquilinos()
+        self._fabrica_vista: FabricaInquilinos = FabricaVista()
 
     @property
     def fabrica_vista(self):
