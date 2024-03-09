@@ -117,8 +117,8 @@ def obtener_companias(root) -> typing.List["Compania"]:
                 id=compania.get('id'),
                 direccion=compania.get('direccion'), 
                 documento_identidad=compania.get('documento_identidad'), 
-                fecha_actualizacion=compania.get('fecha_actualizacion'), 
-                fecha_creacion=compania.get('fecha_creacion'), 
+                fecha_actualizacion=datetime.strptime(compania.get('fecha_actualizacion'), FORMATO_FECHA), 
+                fecha_creacion=datetime.strptime(compania.get('fecha_creacion'), FORMATO_FECHA), 
                 nombre=compania.get('nombre'), 
                 telefono=compania.get('telefono')
             )
@@ -132,8 +132,8 @@ def obtener_compania(id_compania: str) -> "Compania":
                 id=companias_json.get('id'),
                 direccion=companias_json.get('direccion'), 
                 documento_identidad=companias_json.get('documento_identidad'), 
-                fecha_actualizacion=companias_json.get('fecha_actualizacion'), 
-                fecha_creacion=companias_json.get('fecha_creacion'), 
+                fecha_actualizacion=datetime.strptime(companias_json.get('fecha_actualizacion'), FORMATO_FECHA), 
+                fecha_creacion=datetime.strptime(companias_json.get('fecha_creacion'), FORMATO_FECHA), 
                 nombre=companias_json.get('nombre'), 
                 telefono=companias_json.get('telefono')
             )
@@ -151,7 +151,7 @@ class Compania:
     fecha_actualizacion: datetime
     fecha_creacion: datetime
     nombre: str
-    telefono:int
+    telefono:float
 
 @strawberry.type
 class CompaniaRespuesta:
