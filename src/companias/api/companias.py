@@ -11,6 +11,7 @@ from companias.modulos.companias.aplicacion.comandos.crear_compania import Crear
 from companias.modulos.companias.aplicacion.comandos.eliminar_compania import EliminarCompania
 from companias.modulos.companias.aplicacion.queries.obtener_compania import ObtenerCompania
 from companias.modulos.companias.aplicacion.comandos.actualizar_compania import ActualizarCompania
+from companias.modulos.companias.aplicacion.queries.obtener_todos_companias import ObtenerTodosCompanias
 from companias.seedwork.aplicacion.comandos import ejecutar_commando
 from companias.seedwork.aplicacion.queries import ejecutar_query
 
@@ -53,12 +54,19 @@ def dar_compania(id=None):
 @bp.route('/compania-query', methods=('GET',))
 @bp.route('/compania-query/<id>', methods=('GET',))
 def dar_compania_usando_query(id=None):
+    map_compania = MapeadorCompaniaDTOJson()   
     if id:
         query_resultado = ejecutar_query(ObtenerCompania(id))
         map_compania = MapeadorCompaniaDTOJson()        
         return map_compania.dto_a_externo(query_resultado.resultado)
     else:
-        return [{'message': 'GET!'}]
+        query_resultado = ejecutar_query(ObtenerTodosCompanias())
+        resultados = []
+
+        for compania in query_resultado.resultado:
+            resultados.append(map_compania.dto_a_externo(compania))
+        
+        return resultados
 
 
 
