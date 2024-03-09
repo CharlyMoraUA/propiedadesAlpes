@@ -68,7 +68,7 @@ class Mutation:
     
     
     @strawberry.mutation
-    async def crear_inquilino(self, nombre: float, telefono: str,  info: Info) -> InquilinoRespuesta:
+    async def crear_inquilino(self, nombre: str, telefono: int,  info: Info) -> InquilinoRespuesta:
         print(f"nombre: {nombre}, telefono: {telefono}")
         
         payload = dict(
