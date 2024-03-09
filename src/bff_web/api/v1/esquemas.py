@@ -29,7 +29,7 @@ def obtener_contratos(root) -> typing.List["Contrato"]:
             )
         )
 
-    return Contrato
+    return contratos
 
 @strawberry.type
 class Contrato:
