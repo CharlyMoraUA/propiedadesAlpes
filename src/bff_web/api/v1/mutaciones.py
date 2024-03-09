@@ -36,3 +36,31 @@ class Mutation:
         info.context["background_tasks"].add_task(despachador.publicar_mensaje, comando, "comandos-contrato", "public/default/comandos-contrato")
         
         return ContratoRespuesta(mensaje="Procesando Mensaje", codigo=203)
+    
+    
+    
+    @strawberry.mutation
+    async def crear_propiedad(self, area: float, direccion: str, matricula: str, tipo: str,  info: Info) -> PropiedadRespuesta:
+        print(f"area: {area}, direccion: {direccion},  matricula: {matricula}, tipo: {tipo}")
+        
+        payload = dict(
+            area = area,
+            direccion = direccion,
+            matricula = matricula,
+            tipo = tipo
+        )
+        
+        comando = dict(
+            id = str(uuid.uuid4()),
+            time=utils.time_millis(),
+            specversion = "v1",
+            type = "ComandoPropiedad",
+            ingestion=utils.time_millis(),
+            datacontenttype="AVRO",
+            service_name = "BFF Web",
+            data = payload
+        )
+        despachador = Despachador()
+        info.context["background_tasks"].add_task(despachador.publicar_mensaje, comando, "comandos-propiedad", "public/default/comandos-propiedad")
+        
+        return PropiedadRespuesta(mensaje="Procesando Mensaje", codigo=203)
