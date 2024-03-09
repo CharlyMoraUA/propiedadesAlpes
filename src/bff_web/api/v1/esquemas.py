@@ -81,6 +81,29 @@ def obtener_propiedad(id_propiedad: str) -> "Propiedad":
 
 
 
+def obtener_inquilinos(root) -> typing.List["Inquilino"]:
+    inquilinos_json = requests.get(f'http://{PROPIEDADESALPES_HOST}:5001/inquilinos/inquilino-query').json()
+    inquilinos = []
+
+    for inquilino in inquilinos_json:
+        inquilinos.append(
+            Inquilino(
+                id=inquilino.get('id'),
+                nombre=inquilino.get('nombre'), 
+                telefono=inquilino.get('telefono')
+            )
+        )
+
+    return inquilinos
+
+def obtener_inquilino(id_inquilino: str) -> "Inquilino":
+    inquilinos_json = requests.get(f'http://{PROPIEDADESALPES_HOST}:5001/inquilinos/inquilino-query/'+id_inquilino).json()
+    inquilino = Inquilino(
+                id=inquilinos_json.get('id'),
+                nombre=inquilinos_json.get('nombre'), 
+                telefono=inquilinos_json.get('telefono')
+            )
+    return inquilino
 
 
 
@@ -88,6 +111,18 @@ def obtener_propiedad(id_propiedad: str) -> "Propiedad":
 
 
 
+@strawberry.type
+class Inquilino:
+    id: str
+    nombre: str
+    telefono: int
+
+@strawberry.type
+class InquilinoRespuesta:
+    mensaje: str
+    codigo: int
+    
+    
 
 @strawberry.type
 class Contrato:
@@ -105,6 +140,8 @@ class Contrato:
 class ContratoRespuesta:
     mensaje: str
     codigo: int
+    
+    
 
 @strawberry.type
 class Propiedad:

@@ -64,3 +64,29 @@ class Mutation:
         info.context["background_tasks"].add_task(despachador.publicar_mensaje, comando, "comandos-propiedad", "public/default/comandos-propiedad")
         
         return PropiedadRespuesta(mensaje="Procesando Mensaje", codigo=203)
+    
+    
+    
+    @strawberry.mutation
+    async def crear_inquilino(self, nombre: float, telefono: str,  info: Info) -> InquilinoRespuesta:
+        print(f"nombre: {nombre}, telefono: {telefono}")
+        
+        payload = dict(
+            nombre = nombre,
+            telefono = telefono,
+        )
+        
+        comando = dict(
+            id = str(uuid.uuid4()),
+            time=utils.time_millis(),
+            specversion = "v1",
+            type = "ComandoInquilino",
+            ingestion=utils.time_millis(),
+            datacontenttype="AVRO",
+            service_name = "BFF Web",
+            data = payload
+        )
+        despachador = Despachador()
+        info.context["background_tasks"].add_task(despachador.publicar_mensaje, comando, "comandos-inquilino", "public/default/comandos-inquilino")
+        
+        return PropiedadRespuesta(mensaje="Procesando Mensaje", codigo=203)
