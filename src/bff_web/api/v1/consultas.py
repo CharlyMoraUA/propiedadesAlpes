@@ -22,3 +22,10 @@ class Query:
     @strawberry.field
     def inquilino(self, id: str) -> Inquilino:
         return obtener_inquilino(id)
+    
+    
+    companias: typing.List[Compania] = strawberry.field(resolver=obtener_companias)
+    
+    @strawberry.field
+    def compania(self, id: str) -> Compania:
+        return obtener_compania(id)

@@ -90,3 +90,42 @@ class Mutation:
         info.context["background_tasks"].add_task(despachador.publicar_mensaje, comando, "comandos-inquilino", "public/default/comandos-inquilino")
         
         return PropiedadRespuesta(mensaje="Procesando Mensaje", codigo=203)
+    
+    
+    
+    
+    
+    @strawberry.mutation
+    async def crear_compania(self, 
+                              direccion: str,
+                              documento_identidad: str,
+                              fecha_actualizacion: datetime,
+                              fecha_creacion: datetime,
+                              nombre: str,
+                              telefono:int,  
+                              info: Info) -> CompaniaRespuesta:
+        print(f"direaccion: {direccion}, documento_identidad: {documento_identidad}, fecha_actualizacion: {fecha_actualizacion}, fecha_creacion: {fecha_creacion}, nombre: {nombre}, telefono: {telefono}")
+        
+        payload = dict(
+                direccion=direccion, 
+                documento_identidad=documento_identidad, 
+                fecha_actualizacion=fecha_actualizacion, 
+                fecha_creacion=fecha_creacion, 
+                nombre=nombre, 
+                telefono=telefono
+            )
+        
+        comando = dict(
+            id = str(uuid.uuid4()),
+            time=utils.time_millis(),
+            specversion = "v1",
+            type = "ComandoCompania",
+            ingestion=utils.time_millis(),
+            datacontenttype="AVRO",
+            service_name = "BFF Web",
+            data = payload
+        )
+        despachador = Despachador()
+        info.context["background_tasks"].add_task(despachador.publicar_mensaje, comando, "comandos-compania", "public/default/comandos-compania")
+        
+        return PropiedadRespuesta(mensaje="Procesando Mensaje", codigo=203)

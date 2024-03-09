@@ -107,6 +107,56 @@ def obtener_inquilino(id_inquilino: str) -> "Inquilino":
 
 
 
+def obtener_companias(root) -> typing.List["Compania"]:
+    companias_json = requests.get(f'http://{PROPIEDADESALPES_HOST}:5002/companias/compania-query').json()
+    companias = []
+
+    for compania in companias_json:
+        companias.append(
+            Compania(
+                id=compania.get('id'),
+                direccion=compania.get('direccion'), 
+                documento_identidad=compania.get('documento_identidad'), 
+                fecha_actualizacion=compania.get('fecha_actualizacion'), 
+                fecha_creacion=compania.get('fecha_creacion'), 
+                nombre=compania.get('nombre'), 
+                telefono=compania.get('telefono')
+            )
+        )
+
+    return companias
+
+def obtener_compania(id_compania: str) -> "Compania":
+    companias_json = requests.get(f'http://{PROPIEDADESALPES_HOST}:5002/companias/compania-query/'+id_compania).json()
+    compania = Compania(
+                id=companias_json.get('id'),
+                direccion=companias_json.get('direccion'), 
+                documento_identidad=companias_json.get('documento_identidad'), 
+                fecha_actualizacion=companias_json.get('fecha_actualizacion'), 
+                fecha_creacion=companias_json.get('fecha_creacion'), 
+                nombre=companias_json.get('nombre'), 
+                telefono=companias_json.get('telefono')
+            )
+    return compania
+
+
+
+
+
+@strawberry.type
+class Compania:
+    id: str
+    direccion: str
+    documento_identidad: str
+    fecha_actualizacion: datetime
+    fecha_creacion: datetime
+    nombre: str
+    telefono:int
+
+@strawberry.type
+class CompaniaRespuesta:
+    mensaje: str
+    codigo: int
 
 
 
