@@ -9,12 +9,13 @@ class VistaCompania(Vista):
         companias = list()
 
         for compania_dto in companias_dto:
-            companias.append(Compania(id=compania_dto.id, 
-                estado=compania_dto.estado, 
+            companias.append(Compania(
+                id=compania_dto.id, 
+                fecha_creacion=compania_dto.fecha_creacion, 
+                fecha_actualizacion=compania_dto.fecha_actualizacion,
                 documento_identidad=compania_dto.documento_identidad,
                 nombre=compania_dto.nombre,
                 direccion=compania_dto.direccion,
-                telefono=compania_dto.telefono,
                 ))
         
         return companias
