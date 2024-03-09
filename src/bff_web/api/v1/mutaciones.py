@@ -19,8 +19,7 @@ class Mutation:
             id_compania = id_compania,
             id_inquilino = id_inquilino,
             id_propiedad = id_propiedad,
-            monto = monto,
-            fecha_creacion = utils.time_millis()
+            monto = monto
         )
         comando = dict(
             id = str(uuid.uuid4()),
@@ -33,7 +32,7 @@ class Mutation:
             data = payload
         )
         despachador = Despachador()
-        info.context["background_tasks"].add_task(despachador.publicar_mensaje, comando, "comandos-contrato", "public/default/comandos-contrato")
+        info.context["background_tasks"].add_task(despachador.publicar_mensaje, comando, "comando-crear-contrato", "public/default/comando-crear-contrato")
         
         return ContratoRespuesta(mensaje="Procesando Mensaje", codigo=203)
     
