@@ -51,7 +51,7 @@ def obtener_contrato(id_contrato: str) -> "Contrato":
 
 
 def obtener_propiedades(root) -> typing.List["Propiedad"]:
-    propiedades_json = requests.get(f'http://{PROPIEDADESALPES_HOST}:5003/propiedades/propiedades-query').json()
+    propiedades_json = requests.get(f'http://{PROPIEDADESALPES_HOST}:5003/propiedades/propiedad-query').json()
     propiedades = []
 
     for propiedad in propiedades_json:
@@ -68,7 +68,7 @@ def obtener_propiedades(root) -> typing.List["Propiedad"]:
     return propiedades
 
 def obtener_propiedad(id_propiedad: str) -> "Propiedad":
-    propiedades_json = requests.get(f'http://{PROPIEDADESALPES_HOST}:5003/contratos/contrato-query/'+id_propiedad).json()
+    propiedades_json = requests.get(f'http://{PROPIEDADESALPES_HOST}:5003/propiedades/propiedad-query/'+id_propiedad).json()
     propiedad = Propiedad(
                 id=propiedad.get('id'),
                 area=propiedad.get('area'), 
