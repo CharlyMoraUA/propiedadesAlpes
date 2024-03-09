@@ -70,11 +70,11 @@ def obtener_propiedades(root) -> typing.List["Propiedad"]:
 def obtener_propiedad(id_propiedad: str) -> "Propiedad":
     propiedades_json = requests.get(f'http://{PROPIEDADESALPES_HOST}:5003/propiedades/propiedad-query/'+id_propiedad).json()
     propiedad = Propiedad(
-                id=propiedad.get('id'),
-                area=propiedad.get('area'), 
-                direccion=propiedad.get('direccion'), 
-                matricula=propiedad.get('matricula'),
-                tipo=propiedad.get('tipo')
+                id=propiedades_json.get('id'),
+                area=propiedades_json.get('area'), 
+                direccion=propiedades_json.get('direccion'), 
+                matricula=propiedades_json.get('matricula'),
+                tipo=propiedades_json.get('tipo')
             )
     return propiedad
 
