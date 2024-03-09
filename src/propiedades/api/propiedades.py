@@ -38,8 +38,7 @@ def dar_propiedad_usando_query(id=None):
         map_propiedad = MapeadorPropiedadDTOJson()        
         return map_propiedad.dto_a_externo(query_resultado.resultado)
     else:
-
-        query_resultado = ejecutar_query(ObtenerTodosPropiedades)
+        query_resultado = ejecutar_query(ObtenerTodosPropiedades())
         resultados = []
         
         for propiedad in query_resultado.resultado:
