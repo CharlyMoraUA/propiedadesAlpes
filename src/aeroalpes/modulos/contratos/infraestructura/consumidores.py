@@ -39,7 +39,6 @@ def suscribirse_a_comandos():
     try:
         cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
         consumidor = cliente.subscribe('comando-contrato', consumer_type=_pulsar.ConsumerType.Shared, subscription_name='aeroalpes-sub-comando-contrato', schema=AvroSchema(ComandoContrato))
-        print("Si está llegando?")
         mensaje = consumidor.receive()
         
         print("TIPO COMANDO: ")
