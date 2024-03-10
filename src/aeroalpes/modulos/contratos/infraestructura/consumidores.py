@@ -78,7 +78,7 @@ def suscribirse_a_comandos():
                 print(response.json())
             else:
                 print(f"Error: {response.status_code}")
-            print("Comando entregado:")
+            print("Comando crear contrato entregado")
             consumidor.acknowledge(mensaje)
             cliente.close()
 
@@ -95,7 +95,7 @@ def suscribirse_a_comandos():
                 print(response)
             else:
                 print(f"Error: {response.status_code}")
-            print("Comando eliminar contrato entregado:")
+            print("Comando eliminar contrato entregado")
             consumidor.acknowledge(mensaje)
             cliente.close()
             
@@ -129,7 +129,7 @@ def suscribirse_a_comandos():
                 print(response.json())
             else:
                 print(f"Error: {response.status_code}")
-            print("Comando entregado:")
+            print("Comando actualizar contrato entregado")
             consumidor.acknowledge(mensaje)
             cliente.close()
 

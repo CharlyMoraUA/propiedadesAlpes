@@ -253,18 +253,14 @@ class Mutation:
     async def crear_compania(self, 
                               direccion: str,
                               documento_identidad: str,
-                              fecha_actualizacion: str,
-                              fecha_creacion: str,
                               nombre: str,
                               telefono:int,  
                               info: Info) -> CompaniaRespuesta:
-        print(f"direaccion: {direccion}, documento_identidad: {documento_identidad}, fecha_actualizacion: {fecha_actualizacion}, fecha_creacion: {fecha_creacion}, nombre: {nombre}, telefono: {telefono}")
+        print(f"direaccion: {direccion}, documento_identidad: {documento_identidad}, nombre: {nombre}, telefono: {telefono}")
         
         payload = dict(
                 direccion=direccion, 
                 documento_identidad=documento_identidad, 
-                fecha_actualizacion=fecha_actualizacion, 
-                fecha_creacion=fecha_creacion, 
                 nombre=nombre, 
                 telefono=telefono,
                 id = " "
@@ -299,8 +295,6 @@ class Mutation:
         payload = dict(
                 direccion="direccion", 
                 documento_identidad="documento_identidad", 
-                fecha_actualizacion="fecha_actualizacion", 
-                fecha_creacion="fecha_creacion", 
                 nombre="nombre", 
                 telefono=10,
                 id = id
@@ -328,18 +322,14 @@ class Mutation:
                              id: str,
                               direccion: str,
                               documento_identidad: str,
-                              fecha_actualizacion: datetime,
-                              fecha_creacion: datetime,
                               nombre: str,
                               telefono:int,  
                               info: Info) -> CompaniaRespuesta:
-        print(f"id: {id}, direaccion: {direccion}, documento_identidad: {documento_identidad}, fecha_actualizacion: {fecha_actualizacion}, fecha_creacion: {fecha_creacion}, nombre: {nombre}, telefono: {telefono}")
+        print(f"id: {id}, direaccion: {direccion}, documento_identidad: {documento_identidad}, nombre: {nombre}, telefono: {telefono}")
         
         payload = dict(
                 direccion=direccion, 
                 documento_identidad=documento_identidad, 
-                fecha_actualizacion=fecha_actualizacion, 
-                fecha_creacion=fecha_creacion, 
                 nombre=nombre, 
                 telefono=telefono,
                 id = id
