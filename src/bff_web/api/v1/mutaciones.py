@@ -19,7 +19,8 @@ class Mutation:
             id_compania = id_compania,
             id_inquilino = id_inquilino,
             id_propiedad = id_propiedad,
-            monto = monto
+            monto = monto,
+            id = " "
         )
         comando = dict(
             id = str(uuid.uuid4()),
@@ -32,13 +33,19 @@ class Mutation:
             data = payload
         )
         despachador = Despachador()
-        info.context["background_tasks"].add_task(despachador.publicar_mensaje, comando, "comando-crear-contrato", "public/default/comando-crear-contrato")
+        info.context["background_tasks"].add_task(despachador.publicar_mensaje, comando, "comando-contrato", "public/default/comando-contrato")
         
         return ContratoRespuesta(mensaje="Procesando Mensaje", codigo=203)
     
     @strawberry.mutation
     async def eliminar_contrato(self, id: str, info: Info) -> ContratoRespuesta:
         payload = dict(
+            fecha_inicio = "fecha_inicio",
+            fecha_fin = "fecha_fin",
+            id_compania = -1,
+            id_inquilino = -1,
+            id_propiedad = -1,
+            monto = 0,
             id = id
         )
         comando = dict(
@@ -52,7 +59,7 @@ class Mutation:
             data = payload
         )
         despachador = Despachador()
-        info.context["background_tasks"].add_task(despachador.publicar_mensaje, comando, "comando-eliminar-contrato", "public/default/comando-eliminar-contrato")
+        info.context["background_tasks"].add_task(despachador.publicar_mensaje, comando, "comando-contrato", "public/default/comando-contrato")
 
         return ContratoRespuesta(mensaje="Procesando Mensaje", codigo=203)
 
@@ -64,7 +71,8 @@ class Mutation:
             id_compania = id_compania,
             id_inquilino = id_inquilino,
             id_propiedad = id_propiedad,
-            monto = monto
+            monto = monto,
+            id = id
         )
         comando = dict(
             id = str(uuid.uuid4()),
@@ -74,11 +82,10 @@ class Mutation:
             ingestion=utils.time_millis(),
             datacontenttype="AVRO",
             service_name = "BFF Web",
-            data = payload,
-            idContrato = id
+            data = payload
         )
         despachador = Despachador()
-        info.context["background_tasks"].add_task(despachador.publicar_mensaje, comando, "comando-actualizar-contrato", "public/default/comando-actualizar-contrato")
+        info.context["background_tasks"].add_task(despachador.publicar_mensaje, comando, "comando-contrato", "public/default/comando-contrato")
         return ContratoRespuesta(mensaje="Procesando Mensaje", codigo=203)
         
     

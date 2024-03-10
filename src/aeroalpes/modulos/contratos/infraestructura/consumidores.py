@@ -8,7 +8,7 @@ from aeroalpes.modulos.contratos.aplicacion.comandos.crear_contrato import Crear
 from aeroalpes.seedwork.aplicacion.comandos import ejecutar_commando
 
 from aeroalpes.modulos.contratos.infraestructura.schema.v1.eventos import EventoContratoCreado
-from aeroalpes.modulos.contratos.infraestructura.schema.v1.comandos import ComandoCrearContrato, ComandoEliminarContrato, ComandoActualizarContrato
+from aeroalpes.modulos.contratos.infraestructura.schema.v1.comandos import ComandoContratoPayload, ComandoCrearContrato, ComandoEliminarContrato, ComandoActualizarContrato
 from aeroalpes.seedwork.infraestructura import utils
 from datetime import datetime
 
@@ -38,20 +38,17 @@ def suscribirse_a_comandos():
     cliente = None
     try:
         cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
-        consumidor = cliente.subscribe('comando-crear-contrato', consumer_type=_pulsar.ConsumerType.Shared, subscription_name='aeroalpes-sub-comando-crear-contrato', schema=AvroSchema(ComandoCrearContrato))
-        consumidor_eliminar = cliente.subscribe('comando-eliminar-contrato', consumer_type=_pulsar.ConsumerType.Shared, subscription_name='aeroalpes-sub-comando-eliminar-contrato', schema=AvroSchema(ComandoEliminarContrato))
-        consumidor_actualizar = cliente.subscribe('comando-actualizar-contrato', consumer_type=_pulsar.ConsumerType.Shared, subscription_name='aeroalpes-sub-comando-actualizar-contrato', schema=AvroSchema(ComandoActualizarContrato))
+        consumidor = cliente.subscribe('comando-contrato', consumer_type=_pulsar.ConsumerType.Shared, subscription_name='aeroalpes-sub-comando-contrato', schema=AvroSchema(ComandoContratoPayload))
         print("Si está llegando?")
-        mensajeCrear = consumidor.receive()
-        mensajeEliminar = consumidor_eliminar.receive()
-        #mensajeActualizar = consumidor_actualizar.receive()
+        mensaje = consumidor.receive()
 
         url = 'http://localhost:5001/contratos/contrato-comando'
 
-        if (mensajeCrear and mensajeCrear.value().type == "ComandoCrearContrato"):
-            print(f'Comando recibido: {mensajeCrear.value().type}')
+        if (mensaje.value().type == "ComandoCrearContrato"):
+            print("CREAR")
+            print(f'Comando recibido: {mensaje.value().type}')
 
-            contrato_dto=mensajeCrear.value().data
+            contrato_dto=mensaje.value().data
 
             payload = {
                 "fecha_inicio": contrato_dto.fecha_inicio,
@@ -74,13 +71,17 @@ def suscribirse_a_comandos():
             else:
                 print(f"Error: {response.status_code}")
             print("Comando entregado:")
-            consumidor.acknowledge(mensajeCrear)
+            consumidor.acknowledge(mensaje)
             cliente.close()
+            
+            
+            
 
-        elif (mensajeEliminar and mensajeEliminar.value().type == "ComandoEliminarContrato"):
-            print(f'Comando recibido: {mensajeEliminar.value().type}')
+        if (mensaje.value().type == "ComandoEliminarContrato"):
+            print("ELIMINAR")
+            print(f'Comando recibido: {mensaje.value().type}')
 
-            url = 'http://localhost:5001/contratos/contrato-query/'+ str(mensajeEliminar.value().data.id)
+            url = 'http://localhost:5001/contratos/contrato-query/'+ str(mensaje.value().data.id)
 
             response = requests.delete(url)
             if response.status_code == 204:
@@ -88,14 +89,19 @@ def suscribirse_a_comandos():
             else:
                 print(f"Error: {response.status_code}")
             print("Comando eliminar contrato entregado:")
-            consumidor.acknowledge(mensajeEliminar)
+            consumidor.acknowledge(mensaje)
             cliente.close()
-        """ elif (mensajeActualizar and mensajeActualizar.value().type == "ComandoActualizarContrato"):
-            print(f'Comando recibido: {mensajeActualizar.value().type}')
-            print("Que pasa:")
+            
+            
+            
+            
+            
+        if (mensaje.value().type == "ComandoActualizarContrato"):
+            print("ACTUALIZAR")
+            print(f'Comando recibido: {mensaje.value().type}')
 
-            url = 'http://localhost:5001/contratos/contrato-comando/'+ str(mensajeActualizar.value().idContrato)
-            contrato_dto=mensajeActualizar.value().data
+            url = 'http://localhost:5001/contratos/contrato-comando/'+ str(mensaje.value().idContrato)
+            contrato_dto=mensaje.value().data
 
             payload = {
                 "fecha_inicio": contrato_dto.fecha_inicio,
@@ -118,8 +124,8 @@ def suscribirse_a_comandos():
             else:
                 print(f"Error: {response.status_code}")
             print("Comando entregado:")
-            consumidor.acknowledge(mensajeActualizar)
-            cliente.close() """
+            consumidor.acknowledge(mensaje)
+            cliente.close()
 
     except:
         logging.error('ERROR: Suscribiendose al tópico de comandos!')
