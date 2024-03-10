@@ -41,12 +41,13 @@ def suscribirse_a_comandos():
         consumidor = cliente.subscribe('comando-contrato', consumer_type=_pulsar.ConsumerType.Shared, subscription_name='aeroalpes-sub-comando-contrato', schema=AvroSchema(ComandoContratoPayload))
         print("Si está llegando?")
         mensaje = consumidor.receive()
+        
+        print("TIPO COMANDO" + mensaje.value().type)
 
         url = 'http://localhost:5001/contratos/contrato-comando'
 
         if (mensaje.value().type == "ComandoCrearContrato"):
             print("CREAR")
-            print(f'Comando recibido: {mensaje.value().type}')
 
             contrato_dto=mensaje.value().data
 
@@ -79,7 +80,6 @@ def suscribirse_a_comandos():
 
         if (mensaje.value().type == "ComandoEliminarContrato"):
             print("ELIMINAR")
-            print(f'Comando recibido: {mensaje.value().type}')
 
             url = 'http://localhost:5001/contratos/contrato-query/'+ str(mensaje.value().data.id)
 
@@ -98,7 +98,6 @@ def suscribirse_a_comandos():
             
         if (mensaje.value().type == "ComandoActualizarContrato"):
             print("ACTUALIZAR")
-            print(f'Comando recibido: {mensaje.value().type}')
 
             url = 'http://localhost:5001/contratos/contrato-comando/'+ str(mensaje.value().idContrato)
             contrato_dto=mensaje.value().data
