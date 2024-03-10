@@ -253,8 +253,8 @@ class Mutation:
     async def crear_compania(self, 
                               direccion: str,
                               documento_identidad: str,
-                              fecha_actualizacion: datetime,
-                              fecha_creacion: datetime,
+                              fecha_actualizacion: str,
+                              fecha_creacion: str,
                               nombre: str,
                               telefono:int,  
                               info: Info) -> CompaniaRespuesta:
