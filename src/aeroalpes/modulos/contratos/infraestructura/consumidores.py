@@ -8,7 +8,7 @@ from aeroalpes.modulos.contratos.aplicacion.comandos.crear_contrato import Crear
 from aeroalpes.seedwork.aplicacion.comandos import ejecutar_commando
 
 from aeroalpes.modulos.contratos.infraestructura.schema.v1.eventos import EventoContratoCreado
-from aeroalpes.modulos.contratos.infraestructura.schema.v1.comandos import ComandoContratoPayload, ComandoCrearContrato, ComandoEliminarContrato, ComandoActualizarContrato
+from aeroalpes.modulos.contratos.infraestructura.schema.v1.comandos import ComandoContratoPayload
 from aeroalpes.seedwork.infraestructura import utils
 from datetime import datetime
 
