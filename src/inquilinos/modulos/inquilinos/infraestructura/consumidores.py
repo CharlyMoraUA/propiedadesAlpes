@@ -4,6 +4,8 @@ import uuid
 import time
 import logging
 import traceback
+import json
+import requests
 
 from inquilinos.modulos.inquilinos.infraestructura.schema.v1.eventos import EventoInquilinoCreado
 from inquilinos.modulos.inquilinos.infraestructura.schema.v1.comandos import ComandoInquilino
