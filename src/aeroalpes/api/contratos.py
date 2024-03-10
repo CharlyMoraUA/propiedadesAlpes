@@ -11,6 +11,7 @@ from aeroalpes.modulos.contratos.aplicacion.comandos.crear_contrato import Crear
 from aeroalpes.modulos.contratos.aplicacion.comandos.eliminar_contrato import EliminarContrato
 from aeroalpes.modulos.contratos.aplicacion.queries.obtener_contrato import ObtenerContrato
 from aeroalpes.modulos.contratos.aplicacion.comandos.actualizar_contrato import ActualizarContrato
+from aeroalpes.modulos.contratos.aplicacion.queries.obtener_todos_contratos import ObtenerTodosContratos
 from aeroalpes.seedwork.aplicacion.comandos import ejecutar_commando
 from aeroalpes.seedwork.aplicacion.queries import ejecutar_query
 
@@ -53,14 +54,19 @@ def dar_contrato(id=None):
 @bp.route('/contrato-query', methods=('GET',))
 @bp.route('/contrato-query/<id>', methods=('GET',))
 def dar_contrato_usando_query(id=None):
+    map_contrato = MapeadorContratoDTOJson()
     if id:
         query_resultado = ejecutar_query(ObtenerContrato(id))
         map_contrato = MapeadorContratoDTOJson()        
         return map_contrato.dto_a_externo(query_resultado.resultado)
     else:
-        return [{'message': 'GET!'}]
+        query_resultado = ejecutar_query(ObtenerTodosContratos())
+        resultados = []
 
-
+        for contrato in query_resultado.resultado:
+            resultados.append(map_contrato.dto_a_externo(contrato))
+        
+        return resultados
 
 @bp.route('/contrato-query/<id>', methods=('DELETE',))
 def eliminar_contrato_usando_query(id=None):

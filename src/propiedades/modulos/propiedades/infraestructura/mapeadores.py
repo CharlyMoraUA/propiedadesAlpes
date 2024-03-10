@@ -33,7 +33,10 @@ class MapeadorPropiedad(Mapeador):
         print("dto_a_entidad_infra")
         print(PropiedadDTO)
         propiedad = Propiedad(dto.id, dto.matricula, dto.direccion) #ATENCION
-        propiedad.area = dto.area
-        propiedad.tipo = dto.tipo
+        propiedad.id =dto.id
+        propiedad.matricula =dto.matricula
+        propiedad.direccion =dto.direccion
+        propiedad.area =dto.area
+        propiedad.tipo =dto.tipo
         
         return propiedad

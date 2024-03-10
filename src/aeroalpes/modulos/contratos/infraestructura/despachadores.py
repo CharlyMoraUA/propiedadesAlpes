@@ -2,7 +2,7 @@ import pulsar
 from pulsar.schema import *
 
 from aeroalpes.modulos.contratos.infraestructura.schema.v1.eventos import EventoContratoCreado, ContratoCreadoPayload
-from aeroalpes.modulos.contratos.infraestructura.schema.v1.comandos import ComandoCrearContrato, ComandoCrearContratoPayload
+from aeroalpes.modulos.contratos.infraestructura.schema.v1.comandos import ComandoContrato
 from aeroalpes.seedwork.infraestructura import utils
 
 import datetime
@@ -33,9 +33,9 @@ class Despachador:
 
     def publicar_comando(self, comando, topico):
         # TODO Debe existir un forma de crear el Payload en Avro con base al tipo del comando
-        payload = ComandoCrearContratoPayload(
+        payload = ComandoContrato(
             id_usuario=str(comando.id_usuario)
             # agregar itinerarios
         )
-        comando_integracion = ComandoCrearContrato(data=payload)
-        self._publicar_mensaje(comando_integracion, topico, AvroSchema(ComandoCrearContrato))
+        comando_integracion = ComandoContrato(data=payload)
+        self._publicar_mensaje(comando_integracion, topico, AvroSchema(ComandoContrato))

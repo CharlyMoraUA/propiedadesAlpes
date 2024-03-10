@@ -23,13 +23,11 @@ class Propiedad(AgregacionRaiz):
     def crear_propiedad(self, propiedad: Propiedad):
         self.id = propiedad.id
         self.matricula = propiedad.matricula
-        self.direccion = propiedad.area
+        self.direccion = propiedad.direccion
         self.area = propiedad.area
         self.tipo = propiedad.tipo
 
-        print("propiedad2:")
-        print(propiedad)
-
+        
         # despachador = Despachador()
         # despachador.publicar_evento(PropiedadCreado(id_propiedad=self.id, matricula=self.matricula), 'eventos-propiedad')
             #ATENCION

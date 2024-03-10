@@ -176,6 +176,14 @@ Desde el directorio principal ejecute el siguiente comando.
 docker run aeroalpes/notificacion
 ```
 
+## BFF: Web
+
+Desde el directorio `src` ejecute el siguiente comando
+
+```bash
+uvicorn bff_web.main:app --host localhost --port 8003
+```
+
 ## UI Websocket Server
 ### Ejecutar Aplicación
 

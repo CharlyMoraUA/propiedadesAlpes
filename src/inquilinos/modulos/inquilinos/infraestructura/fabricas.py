@@ -11,6 +11,9 @@ from inquilinos.seedwork.dominio.repositorios import Repositorio
 from inquilinos.modulos.inquilinos.dominio.repositorios import RepositorioProveedores, RepositorioInquilinos, RepositorioEventosInquilinos
 from .repositorios import RepositorioProveedoresSQLAlchemy, RepositorioInquilinosSQLAlchemy, RepositorioEventosInquilinoSQLAlchemy
 from .excepciones import ExcepcionFabrica
+from inquilinos.seedwork.infraestructura.vistas import Vista
+from inquilinos.modulos.inquilinos.infraestructura.vistas import VistaInquilino
+from inquilinos.modulos.inquilinos.dominio.entidades import Inquilino
 
 @dataclass
 class FabricaRepositorio(Fabrica):
@@ -21,5 +24,12 @@ class FabricaRepositorio(Fabrica):
             return RepositorioProveedoresSQLAlchemy()
         elif obj == RepositorioEventosInquilinos:
             return RepositorioEventosInquilinoSQLAlchemy()
+        else:
+            raise ExcepcionFabrica(f'No existe fábrica para el objeto {obj}')
+        
+class FabricaVista(Fabrica):
+    def crear_objeto(self, obj: type, mapeador: any = None) -> Vista:
+        if obj == Inquilino:
+            return VistaInquilino()
         else:
             raise ExcepcionFabrica(f'No existe fábrica para el objeto {obj}')

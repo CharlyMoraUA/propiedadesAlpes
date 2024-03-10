@@ -24,8 +24,6 @@ class CrearContrato(Comando):
 class CrearContratoHandler(CrearContratoBaseHandler):
     
     def handle(self, comando: CrearContrato):
-        print("CrearContratoDaniel")
-        print(comando)
 
         contrato_dto = ContratoDTO(
                 id = comando.id
@@ -39,28 +37,15 @@ class CrearContratoHandler(CrearContratoBaseHandler):
             ,   monto = comando.monto
                 )
 
-        print("CrearContratoHandler")
-        print(contrato_dto)
-
         contrato: Contrato = self.fabrica_contratos.crear_objeto(contrato_dto, MapeadorContrato())
-        print("contrato:")
-        print(contrato)
         contrato.crear_contrato(contrato)
-        print("crear contrato:")
-        print(contrato)
 
         repositorio = self.fabrica_repositorio.crear_objeto(RepositorioContratos)
         #repositorio_eventos = self.fabrica_repositorio.crear_objeto(RepositorioEventosContratos)
 
-        print("repositorio:")
-        print(repositorio)
-
-
-
         UnidadTrabajoPuerto.registrar_batch(repositorio.agregar, contrato)
         #UnidadTrabajoPuerto.savepoint()
         UnidadTrabajoPuerto.commit()
-
 
 @comando.register(CrearContrato)
 def ejecutar_comando_crear_contrato(comando: CrearContrato):
