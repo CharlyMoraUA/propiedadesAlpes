@@ -51,7 +51,7 @@ def obtener_contrato(id_contrato: str) -> "Contrato":
 
 
 def obtener_propiedades(root) -> typing.List["Propiedad"]:
-    propiedades_json = requests.get(f'http://{PROPIEDADESALPES_HOST}:5003/propiedades/propiedad-query').json()
+    propiedades_json = requests.get(f'http://{PROPIEDADESALPES_HOST}:5004/propiedades/propiedad-query').json()
     propiedades = []
 
     for propiedad in propiedades_json:
@@ -68,7 +68,7 @@ def obtener_propiedades(root) -> typing.List["Propiedad"]:
     return propiedades
 
 def obtener_propiedad(id_propiedad: str) -> "Propiedad":
-    propiedades_json = requests.get(f'http://{PROPIEDADESALPES_HOST}:5003/propiedades/propiedad-query/'+id_propiedad).json()
+    propiedades_json = requests.get(f'http://{PROPIEDADESALPES_HOST}:5004/propiedades/propiedad-query/'+id_propiedad).json()
     propiedad = Propiedad(
                 id=propiedades_json.get('id'),
                 area=propiedades_json.get('area'), 
@@ -82,7 +82,7 @@ def obtener_propiedad(id_propiedad: str) -> "Propiedad":
 
 
 def obtener_inquilinos(root) -> typing.List["Inquilino"]:
-    inquilinos_json = requests.get(f'http://{PROPIEDADESALPES_HOST}:5001/inquilinos/inquilino-query').json()
+    inquilinos_json = requests.get(f'http://{PROPIEDADESALPES_HOST}:5003/inquilinos/inquilino-query').json()
     inquilinos = []
 
     for inquilino in inquilinos_json:
@@ -97,7 +97,7 @@ def obtener_inquilinos(root) -> typing.List["Inquilino"]:
     return inquilinos
 
 def obtener_inquilino(id_inquilino: str) -> "Inquilino":
-    inquilinos_json = requests.get(f'http://{PROPIEDADESALPES_HOST}:5001/inquilinos/inquilino-query/'+id_inquilino).json()
+    inquilinos_json = requests.get(f'http://{PROPIEDADESALPES_HOST}:5003/inquilinos/inquilino-query/'+id_inquilino).json()
     inquilino = Inquilino(
                 id=inquilinos_json.get('id'),
                 nombre=inquilinos_json.get('nombre'), 
