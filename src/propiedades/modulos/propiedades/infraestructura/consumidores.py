@@ -58,7 +58,7 @@ def suscribirse_a_comandos():
                 "matricula": propiedad_dto.matricula,
                 "direccion": propiedad_dto.direccion,
                 "area": propiedad_dto.area,
-                "tipo": propiedad_dto.nombtipore
+                "tipo": propiedad_dto.tipo
             }
             
             json_payload = json.dumps(payload)
@@ -108,7 +108,7 @@ def suscribirse_a_comandos():
                 "matricula": propiedad_dto.matricula,
                 "direccion": propiedad_dto.direccion,
                 "area": propiedad_dto.area,
-                "tipo": propiedad_dto.nombtipore
+                "tipo": propiedad_dto.tipo
             }
             json_payload = json.dumps(payload)
 
