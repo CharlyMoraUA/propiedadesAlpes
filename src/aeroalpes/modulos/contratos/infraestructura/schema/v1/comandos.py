@@ -21,4 +21,4 @@ class ComandoContrato(ComandoIntegracion):
     ingestion = Long(default=time_millis())
     datacontenttype = String()
     service_name = String()
-    data = ComandoCrearContratoPayload()
+    data = ComandoContratoPayload()
