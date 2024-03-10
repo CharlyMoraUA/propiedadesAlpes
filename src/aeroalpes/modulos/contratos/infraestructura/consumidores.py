@@ -55,7 +55,6 @@ def suscribirse_a_comandos():
         if (mensaje.value().type == "ComandoCrearContrato"):
             print("CREAR")
             
-            """""
             url = 'http://localhost:5001/contratos/contrato-comando'
             
             contrato_dto=mensaje.value().data
@@ -83,7 +82,7 @@ def suscribirse_a_comandos():
             print("Comando entregado:")
             consumidor.acknowledge(mensaje)
             cliente.close()
-            """
+
             
             
 
