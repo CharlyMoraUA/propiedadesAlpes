@@ -25,7 +25,7 @@ class Mutation:
             id = str(uuid.uuid4()),
             time=utils.time_millis(),
             specversion = "v1",
-            type = "ComandoContrato",
+            type = "ComandoCrearContrato",
             ingestion=utils.time_millis(),
             datacontenttype="AVRO",
             service_name = "BFF Web",
@@ -36,7 +36,51 @@ class Mutation:
         
         return ContratoRespuesta(mensaje="Procesando Mensaje", codigo=203)
     
-    
+    @strawberry.mutation
+    async def eliminar_contrato(self, id: str, info: Info) -> ContratoRespuesta:
+        payload = dict(
+            id = id
+        )
+        comando = dict(
+            id = str(uuid.uuid4()),
+            time=utils.time_millis(),
+            specversion = "v1",
+            type = "ComandoEliminarContrato",
+            ingestion=utils.time_millis(),
+            datacontenttype="AVRO",
+            service_name = "BFF Web",
+            data = payload
+        )
+        despachador = Despachador()
+        info.context["background_tasks"].add_task(despachador.publicar_mensaje, comando, "comando-eliminar-contrato", "public/default/comando-eliminar-contrato")
+
+        return ContratoRespuesta(mensaje="Procesando Mensaje", codigo=203)
+
+    @strawberry.mutation
+    async def actualizar_contrato(self, id: str, fecha_inicio: str, fecha_fin: str, id_compania: int, id_inquilino: int, id_propiedad: int, monto: float,  info: Info) -> ContratoRespuesta:
+        payload = dict(
+            fecha_inicio = fecha_inicio,
+            fecha_fin = fecha_fin,
+            id_compania = id_compania,
+            id_inquilino = id_inquilino,
+            id_propiedad = id_propiedad,
+            monto = monto
+        )
+        comando = dict(
+            id = str(uuid.uuid4()),
+            time=utils.time_millis(),
+            specversion = "v1",
+            type = "ComandoActualizarContrato",
+            ingestion=utils.time_millis(),
+            datacontenttype="AVRO",
+            service_name = "BFF Web",
+            data = payload,
+            idContrato = id
+        )
+        despachador = Despachador()
+        info.context["background_tasks"].add_task(despachador.publicar_mensaje, comando, "comando-actualizar-contrato", "public/default/comando-actualizar-contrato")
+        return ContratoRespuesta(mensaje="Procesando Mensaje", codigo=203)
+        
     
     @strawberry.mutation
     async def crear_propiedad(self, area: float, direccion: str, matricula: str, tipo: str,  info: Info) -> PropiedadRespuesta:

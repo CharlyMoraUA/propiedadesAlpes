@@ -21,3 +21,35 @@ class ComandoCrearContrato(ComandoIntegracion):
     datacontenttype = String()
     service_name = String()
     data = ComandoCrearContratoPayload()
+
+class ComandoEliminarContratoPayload(ComandoIntegracion):
+    id = String()
+
+class ComandoEliminarContrato(ComandoIntegracion):
+    id = String(default=str(uuid.uuid4()))
+    time = Long()
+    ingestion = Long(default=time_millis())
+    specversion = String()
+    type = String()
+    datacontenttype = String()
+    service_name = String()
+    data = ComandoEliminarContratoPayload()
+
+class ComandoActualizarContratoPayload(ComandoIntegracion):
+    fecha_inicio = String()
+    fecha_fin = String()
+    id_compania = Integer()
+    id_inquilino = Integer()
+    id_propiedad = Integer()
+    monto = Float()
+
+class ComandoActualizarContrato(ComandoIntegracion):
+    id = String(default=str(uuid.uuid4()))
+    time = Long()
+    ingestion = Long(default=time_millis())
+    specversion = String()
+    type = String()
+    datacontenttype = String()
+    service_name = String()
+    data = ComandoActualizarContratoPayload()
+    idContrato = String()

@@ -11,7 +11,7 @@ PROPIEDADESALPES_HOST = os.getenv("AEROALPES_ADDRESS", default="localhost")
 FORMATO_FECHA = '%Y-%m-%dT%H:%M:%SZ'
 
 def obtener_contratos(root) -> typing.List["Contrato"]:
-    contratos_json = requests.get(f'http://{PROPIEDADESALPES_HOST}:5000/contratos/contrato-query').json()
+    contratos_json = requests.get(f'http://{PROPIEDADESALPES_HOST}:5001/contratos/contrato-query').json()
     contratos = []
 
     for contrato in contratos_json:
@@ -33,7 +33,7 @@ def obtener_contratos(root) -> typing.List["Contrato"]:
 
 def obtener_contrato(id_contrato: str) -> "Contrato":
     print(id_contrato)
-    contratos_json = requests.get(f'http://{PROPIEDADESALPES_HOST}:5000/contratos/contrato-query/'+id_contrato).json()
+    contratos_json = requests.get(f'http://{PROPIEDADESALPES_HOST}:5001/contratos/contrato-query/'+id_contrato).json()
     contrato = Contrato(
         fecha_creacion=datetime.strptime(contratos_json.get('fecha_creacion'), FORMATO_FECHA), 
         fecha_actualizacion=datetime.strptime(contratos_json.get('fecha_actualizacion'), FORMATO_FECHA), 
