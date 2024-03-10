@@ -43,10 +43,15 @@ def suscribirse_a_comandos():
         mensaje = consumidor.receive()
         
         print("TIPO COMANDO: ")
-        print(str(mensaje.value().data.monto))
+        print(str(mensaje.value().type))
+        
+        print("TIPO COMANDO 2: ")
+        print(mensaje.value().type)
+        
+        print("TIPO COMANDO 3: ")
+        print(mensaje.value())
 
        
-
         if (mensaje.value().type == "ComandoCrearContrato"):
             print("CREAR")
             
