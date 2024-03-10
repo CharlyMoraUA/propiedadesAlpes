@@ -1,6 +1,7 @@
 from pulsar.schema import *
 from dataclasses import dataclass, field
 from companias.seedwork.infraestructura.schema.v1.comandos import (ComandoIntegracion)
+import uuid
 
 class ComandoCrearCompaniaPayload(ComandoIntegracion):
     id_usuario = String()
