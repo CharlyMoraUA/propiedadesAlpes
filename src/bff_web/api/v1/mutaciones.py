@@ -189,7 +189,7 @@ class Mutation:
             data = payload
         )
         despachador = Despachador()
-        info.context["background_tasks"].add_task(despachador.publicar_mensaje, comando, "comandos-inquilino", "public/default/comandos-inquilino")
+        info.context["background_tasks"].add_task(despachador.publicar_mensaje, comando, "comando-inquilino", "public/default/comando-inquilino")
         
         return PropiedadRespuesta(mensaje="Procesando Mensaje", codigo=203)
     
