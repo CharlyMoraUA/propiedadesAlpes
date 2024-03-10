@@ -4,7 +4,8 @@ from .base import CrearInquilinoBaseHandler
 from dataclasses import dataclass, field
 from inquilinos.seedwork.aplicacion.comandos import ejecutar_commando as comando
 
-from inquilinos.modulos.inquilinos.dominio.entidades import Inquilino
+# from inquilinos.modulos.inquilinos.dominio.entidades import Inquilino
+from inquilinos.modulos.inquilinos.infraestructura.dto import Inquilino
 from inquilinos.seedwork.infraestructura.uow import UnidadTrabajoPuerto
 from inquilinos.modulos.inquilinos.aplicacion.mapeadores import MapeadorInquilino
 from inquilinos.modulos.inquilinos.infraestructura.repositorios import RepositorioInquilinos, RepositorioEventosInquilinos

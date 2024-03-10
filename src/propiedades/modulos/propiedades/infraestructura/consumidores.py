@@ -35,96 +35,88 @@ def suscribirse_a_comandos():
     try:
         cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
         consumidor = cliente.subscribe('comando-propiedad', consumer_type=_pulsar.ConsumerType.Shared, subscription_name='aeroalpes-sub-comando-propiedad', schema=AvroSchema(ComandoPropiedad))
-        mensaje = consumidor.receive()
         
-        print("TIPO COMANDO: ")
-        print(str(mensaje.value().type))
-        
-        print("TIPO COMANDO 2: ")
-        print(mensaje.value().type)
-        
-        print("TIPO COMANDO 3: ")
-        print(mensaje.value())
-
-       
-        if (mensaje.value().type == "ComandoCrearPropiedad"):
-            print("CREAR")
+        while True:
+            mensaje = consumidor.receive()
             
-            url = 'http://localhost:5004/propiedades/propiedad-comando'
-            
-            propiedad_dto=mensaje.value().data
+            if (mensaje.value().type == "ComandoCrearPropiedad"):
+                print("CREAR")
+                
+                url = 'http://localhost:5004/propiedades/propiedad-comando'
+                
+                propiedad_dto=mensaje.value().data
 
-            payload = {
-                "matricula": propiedad_dto.matricula,
-                "direccion": propiedad_dto.direccion,
-                "area": propiedad_dto.area,
-                "tipo": propiedad_dto.tipo
-            }
-            
-            json_payload = json.dumps(payload)
+                payload = {
+                    "matricula": propiedad_dto.matricula,
+                    "direccion": propiedad_dto.direccion,
+                    "area": propiedad_dto.area,
+                    "tipo": propiedad_dto.tipo
+                }
+                
+                json_payload = json.dumps(payload)
 
-            headers = {
-                'Content-Type': 'application/json'
-            }
+                headers = {
+                    'Content-Type': 'application/json'
+                }
 
-            response = requests.post(url, data=json_payload, headers=headers)
+                response = requests.post(url, data=json_payload, headers=headers)
 
-            if response.status_code == 202:
-                print(response.json())
-            else:
-                print(f"Error: {response.status_code}")
-            print("Comando crear propiedad entregado")
-            consumidor.acknowledge(mensaje)
-            cliente.close()
+                if response.status_code == 202:
+                    print(response.json())
+                else:
+                    print(f"Error: {response.status_code}")
+                print("Comando crear propiedad entregado")
+                consumidor.acknowledge(mensaje)
 
-            
-            
+                
+                
 
-        if (mensaje.value().type == "ComandoEliminarPropiedad"):
-            print("ELIMINAR")
+            if (mensaje.value().type == "ComandoEliminarPropiedad"):
+                print("ELIMINAR")
 
-            url = 'http://localhost:5004/propiedades/propiedad-query/'+ str(mensaje.value().data.id)
+                url = 'http://localhost:5004/propiedades/propiedad-query/'+ str(mensaje.value().data.id)
 
-            response = requests.delete(url)
-            if response.status_code == 204:
-                print(response)
-            else:
-                print(f"Error: {response.status_code}")
-            print("Comando eliminar propiedad entregado")
-            consumidor.acknowledge(mensaje)
-            cliente.close()
-            
-            
-            
-            
-            
-        if (mensaje.value().type == "ComandoActualizarPropiedad"):
-            print("ACTUALIZAR")
+                response = requests.delete(url)
+                if response.status_code == 204:
+                    print(response)
+                else:
+                    print(f"Error: {response.status_code}")
+                print("Comando eliminar propiedad entregado")
+                consumidor.acknowledge(mensaje)
+                
+                
+                
+                
+                
+            if (mensaje.value().type == "ComandoActualizarPropiedad"):
+                print("ACTUALIZAR")
 
-            url = 'http://localhost:5004/propiedades/propiedad-comando/'+ str(mensaje.value().data.id)
-            propiedad_dto=mensaje.value().data
+                url = 'http://localhost:5004/propiedades/propiedad-comando/'+ str(mensaje.value().data.id)
+                propiedad_dto=mensaje.value().data
 
-            payload = {
-                "matricula": propiedad_dto.matricula,
-                "direccion": propiedad_dto.direccion,
-                "area": propiedad_dto.area,
-                "tipo": propiedad_dto.tipo
-            }
-            json_payload = json.dumps(payload)
+                payload = {
+                    "matricula": propiedad_dto.matricula,
+                    "direccion": propiedad_dto.direccion,
+                    "area": propiedad_dto.area,
+                    "tipo": propiedad_dto.tipo
+                }
+                json_payload = json.dumps(payload)
 
-            headers = {
-                'Content-Type': 'application/json'
-            }
+                headers = {
+                    'Content-Type': 'application/json'
+                }
 
-            response = requests.put(url, data=json_payload, headers=headers)
+                response = requests.put(url, data=json_payload, headers=headers)
 
-            if response.status_code == 202:
-                print(response.json())
-            else:
-                print(f"Error: {response.status_code}")
-            print("Comando actualizar propiedad entregado")
-            consumidor.acknowledge(mensaje)
-            cliente.close()
+                if response.status_code == 202:
+                    print(response.json())
+                else:
+                    print(f"Error: {response.status_code}")
+                print("Comando actualizar propiedad entregado")
+                consumidor.acknowledge(mensaje)
+
+
+        cliente.close()
 
     except:
         logging.error('ERROR: Suscribiendose al tópico de comandos!')
