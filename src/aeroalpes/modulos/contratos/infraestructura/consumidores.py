@@ -43,7 +43,7 @@ def suscribirse_a_comandos():
         mensaje = consumidor.receive()
         
         print("TIPO COMANDO: ")
-        print(mensaje.value().type)
+        print(str(mensaje.value().type))
 
         url = 'http://localhost:5001/contratos/contrato-comando'
 
