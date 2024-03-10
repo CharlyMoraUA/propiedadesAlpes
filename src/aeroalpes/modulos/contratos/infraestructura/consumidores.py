@@ -107,7 +107,7 @@ def suscribirse_a_comandos():
         if (mensaje.value().type == "ComandoActualizarContrato"):
             print("ACTUALIZAR")
 
-            url = 'http://localhost:5001/contratos/contrato-comando/'+ str(mensaje.value().idContrato)
+            url = 'http://localhost:5001/contratos/contrato-comando/'+ str(mensaje.value().data.id)
             contrato_dto=mensaje.value().data
 
             payload = {
