@@ -20,8 +20,7 @@ class Mutation:
             id_inquilino = id_inquilino,
             id_propiedad = id_propiedad,
             monto = monto,
-            id = " ",
-            type = "ComandoCrearContrato"
+            id = " "
         )
         comando = dict(
             id = str(uuid.uuid4()),
