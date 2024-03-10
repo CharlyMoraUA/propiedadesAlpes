@@ -12,6 +12,7 @@ class ComandoContratoPayload(ComandoIntegracion):
     id_propiedad = Integer()
     monto = Float()
     id = String()
+    type = String()
 
 class ComandoContrato(ComandoIntegracion):
     id = String(default=str(uuid.uuid4()))
