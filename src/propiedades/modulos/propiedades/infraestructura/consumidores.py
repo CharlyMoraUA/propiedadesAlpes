@@ -36,13 +36,14 @@ def suscribirse_a_comandos():
         cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
         consumidor = cliente.subscribe('comando-propiedad', consumer_type=_pulsar.ConsumerType.Shared, subscription_name='aeroalpes-sub-comando-propiedad', schema=AvroSchema(ComandoPropiedad))
         
+        lHost = 'http://0.0.0.0:5000'
         while True:
             mensaje = consumidor.receive()
             
             if (mensaje.value().type == "ComandoCrearPropiedad"):
                 print("CREAR")
                 
-                url = 'http://localhost:5004/propiedades/propiedad-comando'
+                url = lHost + '/propiedades/propiedad-comando'
                 
                 propiedad_dto=mensaje.value().data
 
@@ -74,7 +75,7 @@ def suscribirse_a_comandos():
             if (mensaje.value().type == "ComandoEliminarPropiedad"):
                 print("ELIMINAR")
 
-                url = 'http://localhost:5004/propiedades/propiedad-query/'+ str(mensaje.value().data.id)
+                url = lHost + '/propiedades/propiedad-query/'+ str(mensaje.value().data.id)
 
                 response = requests.delete(url)
                 if response.status_code == 204:
@@ -91,7 +92,7 @@ def suscribirse_a_comandos():
             if (mensaje.value().type == "ComandoActualizarPropiedad"):
                 print("ACTUALIZAR")
 
-                url = 'http://localhost:5004/propiedades/propiedad-comando/'+ str(mensaje.value().data.id)
+                url = lHost + '/propiedades/propiedad-comando/'+ str(mensaje.value().data.id)
                 propiedad_dto=mensaje.value().data
 
                 payload = {

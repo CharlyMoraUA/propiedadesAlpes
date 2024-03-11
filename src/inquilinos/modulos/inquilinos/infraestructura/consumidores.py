@@ -35,6 +35,7 @@ def suscribirse_a_comandos():
         cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
         consumidor = cliente.subscribe('comando-inquilino', consumer_type=_pulsar.ConsumerType.Shared, subscription_name='aeroalpes-sub-comando-inquilino', schema=AvroSchema(ComandoInquilino))
         
+        lHost = 'http://0.0.0.0:5000'
 
         while True:
             mensaje = consumidor.receive()
@@ -42,7 +43,7 @@ def suscribirse_a_comandos():
             if (mensaje.value().type == "ComandoCrearInquilino"):
                 print("CREAR")
                 
-                url = 'http://localhost:5003/inquilinos/inquilino-comando'
+                url = lHost + '/inquilinos/inquilino-comando'
                 
                 inquilino_dto=mensaje.value().data
 
@@ -71,7 +72,7 @@ def suscribirse_a_comandos():
             if (mensaje.value().type == "ComandoEliminarInquilino"):
                 print("ELIMINAR")
 
-                url = 'http://localhost:5003/inquilinos/inquilino-query/'+ str(mensaje.value().data.id)
+                url = lHost + '/inquilinos/inquilino-query/'+ str(mensaje.value().data.id)
 
                 response = requests.delete(url)
                 if response.status_code == 204:
@@ -88,7 +89,7 @@ def suscribirse_a_comandos():
             if (mensaje.value().type == "ComandoActualizarInquilino"):
                 print("ACTUALIZAR")
 
-                url = 'http://localhost:5003/inquilinos/inquilino-comando/'+ str(mensaje.value().data.id)
+                url = lHost + '/inquilinos/inquilino-comando/'+ str(mensaje.value().data.id)
                 inquilino_dto=mensaje.value().data
 
                 payload = {
