@@ -13,6 +13,8 @@ import json
 def suscribirse_a_eventos():
     cliente = None
     try:
+        print('broker host')
+        print(utils.broker_host())
         cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
         consumidor = cliente.subscribe('eventos-compania', consumer_type=_pulsar.ConsumerType.Shared,subscription_name='companias-sub-eventos', schema=AvroSchema(EventoCompaniaCreada))
 
