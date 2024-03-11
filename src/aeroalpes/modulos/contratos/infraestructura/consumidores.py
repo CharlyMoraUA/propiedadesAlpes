@@ -18,7 +18,9 @@ import json
 def suscribirse_a_eventos():
     cliente = None
     try:
-        cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
+        print('broker host')
+        print(utils.broker_host())
+        cliente = pulsar.Client(f'pulsar://broker:6650')
         consumidor = cliente.subscribe('eventos-contrato', consumer_type=_pulsar.ConsumerType.Shared,subscription_name='aeroalpes-sub-eventos', schema=AvroSchema(EventoContratoCreado))
 
         while True:
@@ -37,7 +39,7 @@ def suscribirse_a_eventos():
 def suscribirse_a_comandos():
     cliente = None
     try:
-        cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
+        cliente = pulsar.Client(f'pulsar://broker:6650')
         consumidor = cliente.subscribe('comando-contrato', consumer_type=_pulsar.ConsumerType.Shared, subscription_name='aeroalpes-sub-comando-contrato', schema=AvroSchema(ComandoContrato))
         
         
@@ -46,7 +48,7 @@ def suscribirse_a_comandos():
             if (mensaje.value().type == "ComandoCrearContrato"):
                 print("CREAR")
                 
-                url = 'http://localhost:5001/contratos/contrato-comando'
+                url = 'http://0.0.0.0:5000/contratos/contrato-comando'
                 
                 contrato_dto=mensaje.value().data
 

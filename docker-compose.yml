@@ -86,7 +86,7 @@ services:
       - managedLedgerDefaultWriteQuorum=1
       - managedLedgerDefaultAckQuorum=1
       - advertisedAddress=broker
-      - advertisedListeners=external:pulsar://127.0.0.1:6650
+      - advertisedListeners=external:pulsar://broker:6650
     depends_on:
       zookeeper:
         condition: service_healthy
@@ -102,19 +102,20 @@ services:
   aeroalpes:
     container_name: aeroalpes
     hostname: aeroalpes
-    image: aeroalpes/flask 
+    image: contratos/flask 
     profiles: ["aeroalpes", "monolito"]
     networks:
-      - sidecar
       - pulsar
     labels:
       SidecarDiscover: "false"
     depends_on:
-      - broker
       - db
     environment:
       - AEROALPES_ADDRESS=aeroalpes
       - PULSAR_ADDRESS=broker
+      - BROKER_HOST=broker
+      - DB_PASSWORD=adminadmin
+      - DB_HOSTNAME=db:3306
     ports:
       - "5001:5000"
   #Mysql
@@ -146,7 +147,6 @@ services:
     labels:
       SidecarDiscover: "false"
     depends_on:
-      - broker
       - db-inquilinos
     environment:
       - AEROALPES_ADDRESS=inquilinos
@@ -154,6 +154,7 @@ services:
       - DB_USERNAME=root
       - DB_PASSWORD=adminadmin
       - DB_HOSTNAME=db-inquilinos:3306
+      - BROKER_HOST=broker
     ports:
       - "5003:5000"
   #Mysql
@@ -180,16 +181,18 @@ services:
       image: companias/flask 
       profiles: ["companias", "monolito"]
       networks:
-        - sidecar
         - pulsar
       labels:
         SidecarDiscover: "false"
       depends_on:
-        - broker
         - db_companias
       environment:
         - AEROALPES_ADDRESS=companias
         - PULSAR_ADDRESS=broker
+        - BROKER_HOST=broker
+        - DB_PASSWORD=adminadmin
+        - DB_HOSTNAME=db_companias:3306
+        - DB_USERNAME=root
       ports:
         - "5002:5000"
   #Mysql
@@ -215,16 +218,18 @@ services:
     image: propiedades/flask 
     profiles: ["propiedades", "monolito"]
     networks:
-      - sidecar
       - pulsar
     labels:
       SidecarDiscover: "false"
     depends_on:
-      - broker
-      - db
+      - db-propiedades
     environment:
       - AEROALPES_ADDRESS=propiedades
       - PULSAR_ADDRESS=broker
+      - DB_USERNAME=root
+      - DB_PASSWORD=adminadmin
+      - DB_HOSTNAME=db-propiedades:3306
+      - BROKER_HOST=broker
     ports:
       - "5004:5000"
   #Mysql
@@ -249,9 +254,6 @@ services:
     hostname: bff
     image: aeroalpes/bff 
     profiles: ["aeroalpes", "bff"]
-    depends_on:
-      - aeroalpes
-      - broker
     environment:
       - AEROALPES_ADDRESS=aeroalpes
       - BROKER_HOST=broker
