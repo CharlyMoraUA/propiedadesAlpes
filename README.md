@@ -1,70 +1,6 @@
-VM
+# Entrega 5 - Prueba de concepto final
 
-sudo docker stop $(sudo docker ps -a -q)
-sudo docker rm $(sudo docker ps -a -q)
-
-sudo docker build . -f aeroalpes.Dockerfile -t contratos/flask &&
-sudo docker build . -f companias.Dockerfile -t companias/flask &&
-sudo docker build . -f inquilinos.Dockerfile -t inquilinos/flask &&
-sudo docker build . -f propiedades.Dockerfile -t propiedades/flask &&
-sudo docker build . -f bff.Dockerfile -t aeroalpes/bff 
-
-sudo rm -r data
-sudo mkdir -p data/bookkeeper && 
-      sudo mkdir -p data/zookeeper && 
-      sudo chmod -R 777 ./data
-
-sudo docker compose up -d db &&
-sudo docker compose up -d db-inquilinos &&
-sudo docker compose up -d db_companias &&
-sudo docker compose up -d db-propiedades &&
-sudo docker compose --profile pulsar up
-
-sudo docker compose up aeroalpes
-sudo docker compose up companias
-sudo docker compose up inquilinos
-sudo docker compose up propiedades
-sudo docker compose up bff
-
-
-GitPod
-
-docker stop $(sudo docker ps -a -q)
-docker rm $(sudo docker ps -a -q)
-
-docker build . -f aeroalpes.Dockerfile -t contratos/flask &&
-docker build . -f companias.Dockerfile -t companias/flask &&
-docker build . -f inquilinos.Dockerfile -t inquilinos/flask &&
-docker build . -f propiedades.Dockerfile -t propiedades/flask &&
-docker build . -f bff.Dockerfile -t aeroalpes/bff 
-
-sudo rm -r data
-sudo mkdir -p data/bookkeeper && 
-      sudo mkdir -p data/zookeeper && 
-      sudo chmod -R 777 ./data
-
-sudo docker compose up -d db &&
-sudo docker compose up -d db-inquilinos &&
-sudo docker compose up -d db_companias &&
-sudo docker compose up -d db-propiedades &&
-sudo docker compose --profile pulsar up
-
-sudo docker compose up aeroalpes
-sudo docker compose up companias
-sudo docker compose up inquilinos
-sudo docker compose up propiedades
-sudo docker compose up bff
-
-
- # Entrega 4 - Prueba de concepto experimentación (entrega parcial)
-flask --app src/aeroalpes/api --debug run -h 0.0.0.0 -p 5001
-flask --app src/companias/api --debug run -h 0.0.0.0 -p 5002
-flask --app src/inquilinos/api --debug run -h 0.0.0.0 -p 5003
-flask --app src/propiedades/api --debug run -h 0.0.0.0 -p 5004
-
-
-
-Repositorio con código de la implementación de la entrega 4
+Repositorio con código de la implementación de la entrega 5, donde se incluye el uso de un Backend for Frontend BFF usando GraphQL como lenguaje de consulta.
 
 ## Descripción de actividades realizadas por cada miembro del equipo:
 
@@ -73,6 +9,12 @@ https://uniandes-my.sharepoint.com/:w:/g/personal/d_chala_uniandes_edu_co/EfFy2F
 ## Estructura del proyecto
 
 Este repositorio sigue en general la misma estructura del repositorio de origen. Sin embargo, hay un par de adiciones importante mencionar:
+
+- El directorio **src/bff_web/** incluye el código del BFF Web. Este servicio cuenta con la siguiente estructura:
+    - **consumidores**: Código con la lógica para leer y procesar eventos del broker de eventos.
+    - **despachadores**: Código con la lógica para publicar comandos al broker de eventos.
+    - **main**: Archivo con la lógica de despliegue y configuración del servidor.
+    - **api**: Módulo con la diferentes versiones del API, routers, esquemas, mutaciones y consultas.
 
 - Nuestro proyecto de propiedades de los Alpes contiene los siguientes archivos:
     - **api**: Contiene el archivo contratos.py con las apis expuestas
@@ -89,8 +31,7 @@ Este repositorio sigue en general la misma estructura del repositorio de origen.
 ### Ejecutar Aplicación
 #ATENCION
 
-
-
+Ejecución de los servicios backend como aplicaciones flask:
 
 flask --app src/aeroalpes/api --debug run -p 5001
 flask --app src/companias/api --debug run -p 5002
@@ -112,9 +53,7 @@ docker-compose up propiedades
 docker-compose up bff
 
 
-
 sudo find . -name "__pycache__" -exec sudo rm -r {} +
-
 
 pulsar puede estar fallando por los archivos en la carpeta data,
 borrar la carpeta y volver a crear con los siguientes comandos permite que se ejecute normalmente
@@ -300,7 +239,60 @@ En caso de querer desplegar dicha topología en el background puede usar el para
 docker-compose up -d
 ```
 
-### Escenario de calidad
+### Comandos útiles para ejecución en cloud - máquina virtual
 
-En la implementación realizada durante esta entrega, se tuvo en cuenta uno de los escenarios de calidad propuestos para validar la hipótesis de diseño del atributo de calidad de modificabilidad. En este escenario de calidad se tomaron decisiones arquitecturales basados en comunicación por eventos y arquitectura hexagonal.
+sudo docker stop $(sudo docker ps -a -q)
+sudo docker rm $(sudo docker ps -a -q)
+
+sudo docker build . -f aeroalpes.Dockerfile -t contratos/flask &&
+sudo docker build . -f companias.Dockerfile -t companias/flask &&
+sudo docker build . -f inquilinos.Dockerfile -t inquilinos/flask &&
+sudo docker build . -f propiedades.Dockerfile -t propiedades/flask &&
+sudo docker build . -f bff.Dockerfile -t aeroalpes/bff 
+
+sudo rm -r data
+sudo mkdir -p data/bookkeeper && 
+      sudo mkdir -p data/zookeeper && 
+      sudo chmod -R 777 ./data
+
+sudo docker compose up -d db &&
+sudo docker compose up -d db-inquilinos &&
+sudo docker compose up -d db_companias &&
+sudo docker compose up -d db-propiedades &&
+sudo docker compose --profile pulsar up
+
+sudo docker compose up aeroalpes
+sudo docker compose up companias
+sudo docker compose up inquilinos
+sudo docker compose up propiedades
+sudo docker compose up bff
+
+
+GitPod
+
+docker stop $(sudo docker ps -a -q)
+docker rm $(sudo docker ps -a -q)
+
+docker build . -f aeroalpes.Dockerfile -t contratos/flask &&
+docker build . -f companias.Dockerfile -t companias/flask &&
+docker build . -f inquilinos.Dockerfile -t inquilinos/flask &&
+docker build . -f propiedades.Dockerfile -t propiedades/flask &&
+docker build . -f bff.Dockerfile -t aeroalpes/bff 
+
+sudo rm -r data
+sudo mkdir -p data/bookkeeper && 
+      sudo mkdir -p data/zookeeper && 
+      sudo chmod -R 777 ./data
+
+sudo docker compose up -d db &&
+sudo docker compose up -d db-inquilinos &&
+sudo docker compose up -d db_companias &&
+sudo docker compose up -d db-propiedades &&
+sudo docker compose --profile pulsar up
+
+sudo docker compose up aeroalpes
+sudo docker compose up companias
+sudo docker compose up inquilinos
+sudo docker compose up propiedades
+sudo docker compose up bff
 
