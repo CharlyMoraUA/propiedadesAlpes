@@ -7,11 +7,14 @@ import os
 from datetime import datetime
 
 
-PROPIEDADESALPES_HOST = os.getenv("AEROALPES_ADDRESS", default="localhost")
+CONTRATOS_ADDRESS_HOST = os.getenv("CONTRATOS_ADDRESS", default="localhost")
+COMPANIAS_ADDRESS_HOST = os.getenv("COMPANIAS_ADDRESS", default="localhost")
+INQUILINOS_ADDRESS_HOST = os.getenv("INQUILINOS_ADDRESS", default="localhost")
+PROPIEDADES_ADDRESS_HOST = os.getenv("PROPIEDADES_ADDRESS", default="localhost")
 FORMATO_FECHA = '%Y-%m-%dT%H:%M:%SZ'
 
 def obtener_contratos(root) -> typing.List["Contrato"]:
-    contratos_json = requests.get(f'http://{PROPIEDADESALPES_HOST}:5001/contratos/contrato-query').json()
+    contratos_json = requests.get(f'http://{CONTRATOS_ADDRESS_HOST}/contratos/contrato-query').json()
     contratos = []
 
     for contrato in contratos_json:
@@ -26,14 +29,14 @@ def obtener_contratos(root) -> typing.List["Contrato"]:
                 id_inquilino=contrato.get('id_inquilino'),
                 id_propiedad=contrato.get('id_propiedad'),
                 monto=contrato.get('monto')
-            )
+            ) 
         )
 
     return contratos
 
 def obtener_contrato(id_contrato: str) -> "Contrato":
     print(id_contrato)
-    contratos_json = requests.get(f'http://{PROPIEDADESALPES_HOST}:5001/contratos/contrato-query/'+id_contrato).json()
+    contratos_json = requests.get(f'http://{CONTRATOS_ADDRESS_HOST}/contratos/contrato-query/'+id_contrato).json()
     contrato = Contrato(
         fecha_creacion=datetime.strptime(contratos_json.get('fecha_creacion'), FORMATO_FECHA), 
         fecha_actualizacion=datetime.strptime(contratos_json.get('fecha_actualizacion'), FORMATO_FECHA), 
@@ -51,7 +54,7 @@ def obtener_contrato(id_contrato: str) -> "Contrato":
 
 
 def obtener_propiedades(root) -> typing.List["Propiedad"]:
-    propiedades_json = requests.get(f'http://{PROPIEDADESALPES_HOST}:5004/propiedades/propiedad-query').json()
+    propiedades_json = requests.get(f'http://{PROPIEDADES_ADDRESS_HOST}/propiedades/propiedad-query').json()
     propiedades = []
 
     for propiedad in propiedades_json:
@@ -68,7 +71,7 @@ def obtener_propiedades(root) -> typing.List["Propiedad"]:
     return propiedades
 
 def obtener_propiedad(id_propiedad: str) -> "Propiedad":
-    propiedades_json = requests.get(f'http://{PROPIEDADESALPES_HOST}:5004/propiedades/propiedad-query/'+id_propiedad).json()
+    propiedades_json = requests.get(f'http://{PROPIEDADES_ADDRESS_HOST}/propiedades/propiedad-query/'+id_propiedad).json()
     propiedad = Propiedad(
                 id=propiedades_json.get('id'),
                 area=propiedades_json.get('area'), 
@@ -82,7 +85,7 @@ def obtener_propiedad(id_propiedad: str) -> "Propiedad":
 
 
 def obtener_inquilinos(root) -> typing.List["Inquilino"]:
-    inquilinos_json = requests.get(f'http://{PROPIEDADESALPES_HOST}:5003/inquilinos/inquilino-query').json()
+    inquilinos_json = requests.get(f'http://{INQUILINOS_ADDRESS_HOST}/inquilinos/inquilino-query').json()
     inquilinos = []
 
     for inquilino in inquilinos_json:
@@ -97,7 +100,7 @@ def obtener_inquilinos(root) -> typing.List["Inquilino"]:
     return inquilinos
 
 def obtener_inquilino(id_inquilino: str) -> "Inquilino":
-    inquilinos_json = requests.get(f'http://{PROPIEDADESALPES_HOST}:5003/inquilinos/inquilino-query/'+id_inquilino).json()
+    inquilinos_json = requests.get(f'http://{INQUILINOS_ADDRESS_HOST}/inquilinos/inquilino-query/'+id_inquilino).json()
     inquilino = Inquilino(
                 id=inquilinos_json.get('id'),
                 nombre=inquilinos_json.get('nombre'), 
@@ -108,7 +111,7 @@ def obtener_inquilino(id_inquilino: str) -> "Inquilino":
 
 
 def obtener_companias(root) -> typing.List["Compania"]:
-    companias_json = requests.get(f'http://{PROPIEDADESALPES_HOST}:5002/companias/compania-query').json()
+    companias_json = requests.get(f'http://{COMPANIAS_ADDRESS_HOST}/companias/compania-query').json()
     companias = []
 
     for compania in companias_json:
@@ -127,7 +130,7 @@ def obtener_companias(root) -> typing.List["Compania"]:
     return companias
 
 def obtener_compania(id_compania: str) -> "Compania":
-    companias_json = requests.get(f'http://{PROPIEDADESALPES_HOST}:5002/companias/compania-query/'+id_compania).json()
+    companias_json = requests.get(f'http://{COMPANIAS_ADDRESS_HOST}/companias/compania-query/'+id_compania).json()
     compania = Compania(
                 id=companias_json.get('id'),
                 direccion=companias_json.get('direccion'), 

@@ -142,7 +142,6 @@ services:
     image: inquilinos/flask 
     profiles: ["inquilinos", "monolito"]
     networks:
-      - sidecar
       - pulsar
     labels:
       SidecarDiscover: "false"
@@ -255,7 +254,10 @@ services:
     image: aeroalpes/bff 
     profiles: ["aeroalpes", "bff"]
     environment:
-      - AEROALPES_ADDRESS=aeroalpes
+      - CONTRATOS_ADDRESS=aeroalpes
+      - COMPANIAS_ADDRESS=companias
+      - INQUILINOS_ADDRESS=inquilinos
+      - PROPIEDADES_ADDRESS=propiedades
       - BROKER_HOST=broker
     networks:
       - pulsar
