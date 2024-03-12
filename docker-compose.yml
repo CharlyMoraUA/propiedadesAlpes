@@ -86,7 +86,7 @@ services:
       - managedLedgerDefaultWriteQuorum=1
       - managedLedgerDefaultAckQuorum=1
       - advertisedAddress=broker
-      - advertisedListeners=external:pulsar://127.0.0.1:6650
+      - advertisedListeners=external:pulsar://broker:6650
     depends_on:
       zookeeper:
         condition: service_healthy
@@ -102,21 +102,22 @@ services:
   aeroalpes:
     container_name: aeroalpes
     hostname: aeroalpes
-    image: aeroalpes/flask 
-    profiles: ["aeroalpes", "monolito"]
+    image: contratos/flask 
+    profiles: ["aeroalpes"]
     networks:
-      - sidecar
       - pulsar
     labels:
       SidecarDiscover: "false"
     depends_on:
-      - broker
       - db
     environment:
       - AEROALPES_ADDRESS=aeroalpes
       - PULSAR_ADDRESS=broker
+      - BROKER_HOST=broker
+      - DB_PASSWORD=adminadmin
+      - DB_HOSTNAME=db:3306
     ports:
-      - "5000:5000"
+      - "5001:5000"
   #Mysql
   db:
     image: mysql:8
@@ -139,14 +140,12 @@ services:
     container_name: inquilinos
     hostname: inquilinos
     image: inquilinos/flask 
-    profiles: ["inquilinos", "monolito"]
+    profiles: ["inquilinos"]
     networks:
-      - sidecar
       - pulsar
     labels:
       SidecarDiscover: "false"
     depends_on:
-      - broker
       - db-inquilinos
     environment:
       - AEROALPES_ADDRESS=inquilinos
@@ -154,8 +153,9 @@ services:
       - DB_USERNAME=root
       - DB_PASSWORD=adminadmin
       - DB_HOSTNAME=db-inquilinos:3306
+      - BROKER_HOST=broker
     ports:
-      - "5000:5000"
+      - "5003:5000"
   #Mysql
   db-inquilinos:
     image: mysql:8
@@ -178,18 +178,20 @@ services:
       container_name: companias
       hostname: companias
       image: companias/flask 
-      profiles: ["companias", "monolito"]
+      profiles: ["companias"]
       networks:
-        - sidecar
         - pulsar
       labels:
         SidecarDiscover: "false"
       depends_on:
-        - broker
         - db_companias
       environment:
         - AEROALPES_ADDRESS=companias
         - PULSAR_ADDRESS=broker
+        - BROKER_HOST=broker
+        - DB_PASSWORD=adminadmin
+        - DB_HOSTNAME=db_companias:3306
+        - DB_USERNAME=root
       ports:
         - "5002:5000"
   #Mysql
@@ -213,20 +215,22 @@ services:
     container_name: propiedades
     hostname: propiedades
     image: propiedades/flask 
-    profiles: ["propiedades", "monolito"]
+    profiles: ["propiedades"]
     networks:
-      - sidecar
       - pulsar
     labels:
       SidecarDiscover: "false"
     depends_on:
-      - broker
-      - db
+      - db-propiedades
     environment:
       - AEROALPES_ADDRESS=propiedades
       - PULSAR_ADDRESS=broker
+      - DB_USERNAME=root
+      - DB_PASSWORD=adminadmin
+      - DB_HOSTNAME=db-propiedades:3306
+      - BROKER_HOST=broker
     ports:
-      - "5000:5000"
+      - "5004:5000"
   #Mysql
   db-propiedades:
     image: mysql:8
@@ -243,3 +247,19 @@ services:
       - pulsar
     ports:
       - '3310:3306'
+  # Servicio BFF
+  bff:
+    container_name: bff
+    hostname: bff
+    image: aeroalpes/bff 
+    profiles: ["bff"]
+    environment:
+      - CONTRATOS_ADDRESS=aeroalpes
+      - COMPANIAS_ADDRESS=companias
+      - INQUILINOS_ADDRESS=inquilinos
+      - PROPIEDADES_ADDRESS=propiedades
+      - BROKER_HOST=broker
+    networks:
+      - pulsar
+    ports:
+      - "8003:8003"

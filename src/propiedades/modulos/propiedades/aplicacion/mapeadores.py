@@ -12,10 +12,6 @@ class MapeadorPropiedadDTOJson(AppMap):
     
     def externo_a_dto(self, externo: dict) -> PropiedadDTO:
         propiedad_dto = PropiedadDTO(str(uuid.uuid4()), externo.get('matricula'), externo.get('direccion'), externo.get('area'), externo.get('tipo'))
-        print("propiedad_dto3")
-        print(propiedad_dto)
-        print("EXTERNO")
-        print(externo)
 
         return propiedad_dto
 

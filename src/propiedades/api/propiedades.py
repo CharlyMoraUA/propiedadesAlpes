@@ -1,3 +1,4 @@
+from propiedades.modulos.propiedades.aplicacion.queries.obtener_todos_propiedades import ObtenerTodosPropiedades
 import propiedades.seedwork.presentacion.api as api
 import json
 from propiedades.modulos.propiedades.aplicacion.servicios import ServicioPropiedad
@@ -28,14 +29,22 @@ def crear_propiedad_asincrono():
     except ExcepcionDominio as e:
         return Response(json.dumps(dict(error=str(e))), status=400, mimetype='application/json')
 
+@bp.route('/propiedad-query', methods=('GET',))
 @bp.route('/propiedad-query/<id>', methods=('GET',))
 def dar_propiedad_usando_query(id=None):
+    map_propiedad = MapeadorPropiedadDTOJson() 
     if id:
         query_resultado = ejecutar_query(ObtenerPropiedad(id))
         map_propiedad = MapeadorPropiedadDTOJson()        
         return map_propiedad.dto_a_externo(query_resultado.resultado)
     else:
-        return [{'message': 'GET!'}]
+        query_resultado = ejecutar_query(ObtenerTodosPropiedades())
+        resultados = []
+        
+        for propiedad in query_resultado.resultado:
+            resultados.append(map_propiedad.dto_a_externo(propiedad))
+        
+        return resultados
 
 @bp.route('/propiedad-query/<id>', methods=('DELETE',))
 def eliminar_propiedad_usando_query(id=None):

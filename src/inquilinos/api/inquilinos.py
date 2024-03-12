@@ -1,3 +1,4 @@
+from inquilinos.modulos.inquilinos.aplicacion.queries.obtener_todos_inquilinos import ObtenerTodosInquilinos
 import inquilinos.seedwork.presentacion.api as api
 import json
 from inquilinos.modulos.inquilinos.aplicacion.servicios import ServicioInquilino
@@ -53,12 +54,18 @@ def dar_inquilino(id=None):
 @bp.route('/inquilino-query', methods=('GET',))
 @bp.route('/inquilino-query/<id>', methods=('GET',))
 def dar_inquilino_usando_query(id=None):
+    map_inquilino = MapeadorInquilinoDTOJson() 
     if id:
-        query_resultado = ejecutar_query(ObtenerInquilino(id))
-        map_inquilino = MapeadorInquilinoDTOJson()        
+        query_resultado = ejecutar_query(ObtenerInquilino(id))       
         return map_inquilino.dto_a_externo(query_resultado.resultado)
     else:
-        return [{'message': 'GET!'}]
+        query_resultado = ejecutar_query(ObtenerTodosInquilinos())
+        resultados = []
+
+        for inquilino in query_resultado.resultado:
+            resultados.append(map_inquilino.dto_a_externo(inquilino))
+        
+        return resultados
 
 
 

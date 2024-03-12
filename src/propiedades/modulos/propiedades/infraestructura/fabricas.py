@@ -11,6 +11,9 @@ from propiedades.seedwork.dominio.repositorios import Repositorio
 from propiedades.modulos.propiedades.dominio.repositorios import RepositorioProveedores, RepositorioPropiedads, RepositorioEventosPropiedads
 from .repositorios import RepositorioProveedoresSQLAlchemy, RepositorioPropiedadsSQLAlchemy, RepositorioEventosPropiedadSQLAlchemy
 from .excepciones import ExcepcionFabrica
+from propiedades.seedwork.infraestructura.vistas import Vista
+from propiedades.modulos.propiedades.infraestructura.vistas import VistaPropiedad
+from propiedades.modulos.propiedades.dominio.entidades import Propiedad
 
 @dataclass
 class FabricaRepositorio(Fabrica):
@@ -21,5 +24,13 @@ class FabricaRepositorio(Fabrica):
             return RepositorioProveedoresSQLAlchemy()
         elif obj == RepositorioEventosPropiedads:
             return RepositorioEventosPropiedadSQLAlchemy()
+        else:
+            raise ExcepcionFabrica(f'No existe fábrica para el objeto {obj}')
+        
+@dataclass
+class FabricaVista(Fabrica):
+    def crear_objeto(self, obj: type, mapeador: any = None) -> Vista:
+        if obj == Propiedad:
+            return VistaPropiedad()
         else:
             raise ExcepcionFabrica(f'No existe fábrica para el objeto {obj}')
