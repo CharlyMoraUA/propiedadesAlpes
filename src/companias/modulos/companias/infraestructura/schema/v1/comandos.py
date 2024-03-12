@@ -1,7 +1,7 @@
 from pulsar.schema import *
 from dataclasses import dataclass, field
 from companias.seedwork.infraestructura.schema.v1.comandos import (ComandoIntegracion)
-from aeroalpes.seedwork.infraestructura.utils import time_millis
+from companias.seedwork.infraestructura.utils import time_millis
 import uuid
 
 class ComandoCrearCompaniaPayload(ComandoIntegracion):
