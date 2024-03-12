@@ -13,6 +13,8 @@ import json
 def suscribirse_a_eventos():
     cliente = None
     try:
+        print('broker host')
+        print(utils.broker_host())
         cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
         consumidor = cliente.subscribe('eventos-compania', consumer_type=_pulsar.ConsumerType.Shared,subscription_name='companias-sub-eventos', schema=AvroSchema(EventoCompaniaCreada))
 
@@ -35,13 +37,15 @@ def suscribirse_a_comandos():
         cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
         consumidor = cliente.subscribe('comando-compania', consumer_type=_pulsar.ConsumerType.Shared, subscription_name='aeroalpes-sub-comando-compania', schema=AvroSchema(ComandoCompania))
         
+        lHost = 'http://0.0.0.0:5000'
+
         while True:
             mensaje = consumidor.receive()
                 
             if (mensaje.value().type == "ComandoCrearCompania"):
                 print("CREAR")
                 
-                url = 'http://localhost:5002/companias/compania-comando'
+                url = lHost + '/companias/compania-comando'
                 
                 compania_dto=mensaje.value().data
 
@@ -72,7 +76,7 @@ def suscribirse_a_comandos():
             if (mensaje.value().type == "ComandoEliminarCompania"):
                 print("ELIMINAR")
 
-                url = 'http://localhost:5002/companias/compania-query/'+ str(mensaje.value().data.id)
+                url = lHost + '/companias/compania-query/'+ str(mensaje.value().data.id)
 
                 response = requests.delete(url)
                 if response.status_code == 204:
@@ -89,7 +93,7 @@ def suscribirse_a_comandos():
             if (mensaje.value().type == "ComandoActualizarCompania"):
                 print("ACTUALIZAR")
 
-                url = 'http://localhost:5002/companias/compania-comando/'+ str(mensaje.value().data.id)
+                url = lHost + '/companias/compania-comando/'+ str(mensaje.value().data.id)
                 compania_dto=mensaje.value().data
 
                 payload = {
