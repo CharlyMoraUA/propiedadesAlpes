@@ -1,3 +1,61 @@
+VM
+
+sudo docker stop $(sudo docker ps -a -q)
+sudo docker rm $(sudo docker ps -a -q)
+
+sudo docker build . -f aeroalpes.Dockerfile -t contratos/flask &&
+sudo docker build . -f companias.Dockerfile -t companias/flask &&
+sudo docker build . -f inquilinos.Dockerfile -t inquilinos/flask &&
+sudo docker build . -f propiedades.Dockerfile -t propiedades/flask &&
+sudo docker build . -f bff.Dockerfile -t aeroalpes/bff 
+
+sudo rm -r data
+sudo mkdir -p data/bookkeeper && 
+      sudo mkdir -p data/zookeeper && 
+      sudo chmod -R 777 ./data
+
+sudo docker compose up -d db &&
+sudo docker compose up -d db-inquilinos &&
+sudo docker compose up -d db_companias &&
+sudo docker compose up -d db-propiedades &&
+sudo docker compose --profile pulsar up
+
+sudo docker compose up aeroalpes
+sudo docker compose up companias
+sudo docker compose up inquilinos
+sudo docker compose up propiedades
+sudo docker compose up bff
+
+
+GitPod
+
+docker stop $(sudo docker ps -a -q)
+docker rm $(sudo docker ps -a -q)
+
+docker build . -f aeroalpes.Dockerfile -t contratos/flask &&
+docker build . -f companias.Dockerfile -t companias/flask &&
+docker build . -f inquilinos.Dockerfile -t inquilinos/flask &&
+docker build . -f propiedades.Dockerfile -t propiedades/flask &&
+docker build . -f bff.Dockerfile -t aeroalpes/bff 
+
+sudo rm -r data
+sudo mkdir -p data/bookkeeper && 
+      sudo mkdir -p data/zookeeper && 
+      sudo chmod -R 777 ./data
+
+sudo docker compose up -d db &&
+sudo docker compose up -d db-inquilinos &&
+sudo docker compose up -d db_companias &&
+sudo docker compose up -d db-propiedades &&
+sudo docker compose --profile pulsar up
+
+sudo docker compose up aeroalpes
+sudo docker compose up companias
+sudo docker compose up inquilinos
+sudo docker compose up propiedades
+sudo docker compose up bff
+
+
  # Entrega 4 - Prueba de concepto experimentación (entrega parcial)
 flask --app src/aeroalpes/api --debug run -h 0.0.0.0 -p 5001
 flask --app src/companias/api --debug run -h 0.0.0.0 -p 5002
@@ -5,11 +63,6 @@ flask --app src/inquilinos/api --debug run -h 0.0.0.0 -p 5003
 flask --app src/propiedades/api --debug run -h 0.0.0.0 -p 5004
 
 
-sudo docker compose up -d db
-sudo docker compose up -d db-inquilinos
-sudo docker compose up -d db_companias
-sudo docker compose up -d db-propiedades
-sudo docker compose --profile pulsar up
 
 Repositorio con código de la implementación de la entrega 4
 
@@ -35,15 +88,6 @@ Este repositorio sigue en general la misma estructura del repositorio de origen.
 
 ### Ejecutar Aplicación
 #ATENCION
-docker stop $(docker ps -a -q)
-docker rm $(docker ps -a -q)
-
-docker build . -f aeroalpes.Dockerfile -t contratos/flask
-docker build . -f companias.Dockerfile -t companias/flask
-docker build . -f inquilinos.Dockerfile -t inquilinos/flask
-docker build . -f propiedades.Dockerfile -t propiedades/flask
-
-docker build . -f bff.Dockerfile -t aeroalpes/bff 
 
 
 

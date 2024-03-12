@@ -8,6 +8,6 @@ RUN pip install --no-cache-dir wheel
 RUN pip install requests
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY . .
+COPY ./src/inquilinos ./src/inquilinos
 
 CMD [ "flask", "--app", "./src/inquilinos/api", "run", "--host=0.0.0.0"]

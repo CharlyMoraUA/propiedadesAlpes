@@ -8,6 +8,6 @@ RUN pip install --no-cache-dir wheel
 RUN pip install requests
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY . .
+COPY ./src/aeroalpes ./src/aeroalpes
 
 CMD [ "flask", "--app", "./src/aeroalpes/api", "run", "--host=0.0.0.0"]
