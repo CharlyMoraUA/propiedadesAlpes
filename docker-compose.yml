@@ -103,7 +103,7 @@ services:
     container_name: aeroalpes
     hostname: aeroalpes
     image: contratos/flask 
-    profiles: ["aeroalpes", "monolito"]
+    profiles: ["aeroalpes"]
     networks:
       - pulsar
     labels:
@@ -140,7 +140,7 @@ services:
     container_name: inquilinos
     hostname: inquilinos
     image: inquilinos/flask 
-    profiles: ["inquilinos", "monolito"]
+    profiles: ["inquilinos"]
     networks:
       - pulsar
     labels:
@@ -178,7 +178,7 @@ services:
       container_name: companias
       hostname: companias
       image: companias/flask 
-      profiles: ["companias", "monolito"]
+      profiles: ["companias"]
       networks:
         - pulsar
       labels:
@@ -215,7 +215,7 @@ services:
     container_name: propiedades
     hostname: propiedades
     image: propiedades/flask 
-    profiles: ["propiedades", "monolito"]
+    profiles: ["propiedades"]
     networks:
       - pulsar
     labels:
@@ -252,7 +252,7 @@ services:
     container_name: bff
     hostname: bff
     image: aeroalpes/bff 
-    profiles: ["aeroalpes", "bff"]
+    profiles: ["bff"]
     environment:
       - CONTRATOS_ADDRESS=aeroalpes
       - COMPANIAS_ADDRESS=companias

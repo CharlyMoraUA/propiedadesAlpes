@@ -26,26 +26,4 @@ class Contrato(db.Model):
     monto = db.Column(db.Float, nullable=False)
 
 
-class Compania(db.Model):
-    __tablename__ = "companias"
-    id = db.Column(db.String(255), primary_key=True)
-    documento_identidad = db.Column(db.String(255), nullable=False)
-    nombre = db.Column(db.String(255), nullable=False)
-    direccion = db.Column(db.String(255), nullable=False)
-    telefono = db.Column(db.Integer, nullable=False)
-
-class Inquilino(db.Model):
-    __tablename__ = "inquilinos"
-    id = db.Column(db.String(255), primary_key=True)
-    nombre = db.Column(db.String(255), nullable=False)
-    telefono = db.Column(db.Integer, nullable=False)
-
-class Propiedad(db.Model):
-    __tablename__ = "propiedades"
-    id = db.Column(db.String(255), primary_key=True)
-    matricula = db.Column(db.String(255), nullable=False)
-    direccion = db.Column(db.String(255), nullable=False)
-    area = db.Column(db.Integer, nullable=False)
-    tipo = db.Column(db.String(255), nullable=False)
-
 
