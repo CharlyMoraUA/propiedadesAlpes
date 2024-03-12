@@ -1,0 +1,498 @@
+{
+	"info": {
+		"_postman_id": "3eef6435-52a8-49c6-af78-9635953bb70b",
+		"name": "Proyecto Entrega 5",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33337148",
+		"_collection_link": "https://no-monoliticas-775923.postman.co/workspace/aea2e58e-bcab-4d5b-8b3e-b3a59ce75a38/collection/33329544-3eef6435-52a8-49c6-af78-9635953bb70b?action=share&source=collection_link&creator=33337148"
+	},
+	"item": [
+		{
+			"name": "CONTRATOS",
+			"item": [
+				{
+					"name": "CREATE_CONTRATOS_BFF",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation {\r\n  crearContrato(\r\n    fechaFin: \"2024-03-08T05:12:58Z\"\r\n    fechaInicio: \"2024-03-08T05:12:58Z\"\r\n    idCompania: 10\r\n    idInquilino: 10\r\n    idPropiedad: 10\r\n    monto: 1.5\r\n  ) {\r\n    codigo\r\n    mensaje\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{URL_BFF}}",
+							"host": [
+								"{{URL_BFF}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "READ_CONTRATOS_BFF",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\r\n  contratos {\r\n    fechaActualizacion\r\n    fechaCreacion\r\n    fechaFin\r\n    fechaInicio\r\n    idCompania\r\n    id\r\n    idInquilino\r\n    idPropiedad\r\n    monto\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{URL_BFF}}",
+							"host": [
+								"{{URL_BFF}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "READ_CONTRATO_BFF",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\r\n  contrato(id: \"{{CONTRATO_ID}}\") {\r\n    fechaActualizacion\r\n    fechaCreacion\r\n    fechaFin\r\n    fechaInicio\r\n    id\r\n    idCompania\r\n    idInquilino\r\n    idPropiedad\r\n    monto\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{URL_BFF}}",
+							"host": [
+								"{{URL_BFF}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE_CONTRATOS_BFF",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation {\r\n  actualizarContrato(\r\n    fechaFin: \"2024-03-08T05:12:58Z\"\r\n    fechaInicio: \"2024-03-08T05:12:58Z\"\r\n    id: \"{{CONTRATO_ID}}\"\r\n    idCompania: 10\r\n    idInquilino: 10\r\n    idPropiedad: 10\r\n    monto: 1.5\r\n  ) {\r\n    codigo\r\n    mensaje\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{URL_BFF}}",
+							"host": [
+								"{{URL_BFF}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE_CONTRATOS_BFF",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation {\r\n  eliminarContrato(id: \"{{CONTRATO_ID}}\") {\r\n    codigo\r\n    mensaje\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{URL_BFF}}",
+							"host": [
+								"{{URL_BFF}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "INQUILINOS",
+			"item": [
+				{
+					"name": "CREATE_INQUILINOS_BFF",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation {\r\n  crearInquilino(nombre: \"Pedro Suarez\", telefono: 10) {\r\n    codigo\r\n    mensaje\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{URL_BFF}}",
+							"host": [
+								"{{URL_BFF}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "READ_INQUILINOS_BFF",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\r\n  inquilinos {\r\n    id\r\n    nombre\r\n    telefono\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{URL_BFF}}",
+							"host": [
+								"{{URL_BFF}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "READ_INQUILINO_BFF",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\r\n  inquilino(id: \"{{INQUILINO_ID}}\") {\r\n    id\r\n    nombre\r\n    telefono\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{URL_BFF}}",
+							"host": [
+								"{{URL_BFF}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE_INQUILINOS_BFF",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation {\r\n  actualizarInquilino(id: \"{{INQUILINO_ID}}\", nombre: \"Pedro Perez\", telefono: 10) {\r\n    codigo\r\n    mensaje\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{URL_BFF}}",
+							"host": [
+								"{{URL_BFF}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE_INQUILINOS_BFF",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation {\r\n  eliminarInquilino(id: \"{{INQUILINO_ID}}\") {\r\n    codigo\r\n    mensaje\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{URL_BFF}}",
+							"host": [
+								"{{URL_BFF}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PROPIEDADES",
+			"item": [
+				{
+					"name": "CREATE_PROPIEDADES_BFF",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation {\r\n  crearPropiedad(area: 1.5, direccion: \"CALLE\", matricula: \"MATRICULA\", tipo: \"TIPO\") {\r\n    codigo\r\n    mensaje\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{URL_BFF}}",
+							"host": [
+								"{{URL_BFF}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "READ_PROPIEDADES_BFF",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\r\n  propiedades {\r\n    area\r\n    direccion\r\n    id\r\n    matricula\r\n    tipo\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{URL_BFF}}",
+							"host": [
+								"{{URL_BFF}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "READ_PROPIEDAD_BFF",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\r\n  propiedad(id: \"{{PROPIEDAD_ID}}\") {\r\n    area\r\n    direccion\r\n    id\r\n    matricula\r\n    tipo\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{URL_BFF}}",
+							"host": [
+								"{{URL_BFF}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE_PROPIEDADES_BFF",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation {\r\n  actualizarPropiedad(area: 1.5, direccion: \"CELLE\", id: \"{{PROPIEDAD_ID}}\", matricula: \"METRE\", tipo: \"TOPO\") {\r\n    codigo\r\n    mensaje\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{URL_BFF}}",
+							"host": [
+								"{{URL_BFF}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE_PROPIEDADES_BFF",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation  {\r\n  eliminarPropiedad(id: \"{{PROPIEDAD_ID}}\") {\r\n    codigo\r\n    mensaje\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{URL_BFF}}",
+							"host": [
+								"{{URL_BFF}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "COMPANIAS",
+			"item": [
+				{
+					"name": "CREATE_COMPANIA_BFF",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation {\r\n  crearCompania(direccion: \"DIR\", \r\n                documentoIdentidad: \"DOC\", \r\n                nombre: \"Nom\", \r\n                telefono: 10) {\r\n    codigo\r\n    mensaje\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{URL_BFF}}",
+							"host": [
+								"{{URL_BFF}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "READ_COMPANIA_BFF",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\r\n  compania(id: \"{{COMPANIA_ID}}\") {\r\n    direccion\r\n    documentoIdentidad\r\n    fechaActualizacion\r\n    fechaCreacion\r\n    id\r\n    nombre\r\n    telefono\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{URL_BFF}}",
+							"host": [
+								"{{URL_BFF}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "READ_COMPANIAS_BFF",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\r\n  companias {\r\n    direccion\r\n    documentoIdentidad\r\n    fechaActualizacion\r\n    fechaCreacion\r\n    id\r\n    nombre\r\n    telefono\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{URL_BFF}}",
+							"host": [
+								"{{URL_BFF}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE_COMPANIA_BFF",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation {\r\n  actualizarCompania(\r\n    direccion: \"DIREC\"\r\n    documentoIdentidad: \"DOCU\"\r\n    id: \"{{COMPANIA_ID}}\"\r\n    nombre: \"NUM\"\r\n    telefono: 10\r\n  ) {\r\n    codigo\r\n    mensaje\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{URL_BFF}}",
+							"host": [
+								"{{URL_BFF}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE_COMPANIA_BFF",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation {\r\n  eliminarCompania(id: \"{{COMPANIA_ID}}\") {\r\n    codigo\r\n    mensaje\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{URL_BFF}}",
+							"host": [
+								"{{URL_BFF}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "CONTRATO_ID",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "INQUILINO_ID",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "PROPIEDAD_ID",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "COMPANIA_ID",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "URL_BFF",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

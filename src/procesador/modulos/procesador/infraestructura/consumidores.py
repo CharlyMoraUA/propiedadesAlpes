@@ -12,6 +12,8 @@ from procesador.seedwork.infraestructura import utils
 def suscribirse_a_eventos():
     cliente = None
     try:
+        print('broker host')
+        print(utils.broker_host())
         cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
 
         # topics = ['eventos-propiedad', 'eventos-compania', 'eventos-inquilino', 'eventos-contrato']
